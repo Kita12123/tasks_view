@@ -1,0 +1,212 @@
+{
+  "main": {
+    "id": "e564d977e5ecd410",
+    "type": "split",
+    "children": [
+      {
+        "id": "252491f521872895",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e0f5bd11a714c675",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/er-diagram.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "er-diagram"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f3b1c16f9fcb0a47",
+    "type": "split",
+    "children": [
+      {
+        "id": "3eaa165908359011",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "839bebd65a9ef942",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "ファイルエクスプローラ"
+            }
+          },
+          {
+            "id": "fd89ecfb4f89919e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "検索"
+            }
+          },
+          {
+            "id": "378f3acfc963946a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "ブックマーク"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "449f8dd5d7aae995",
+    "type": "split",
+    "children": [
+      {
+        "id": "1ea3399431afc82d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1904dd2477019634",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/er-diagram.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "er-diagramへのバックリンク"
+            }
+          },
+          {
+            "id": "867caedba9bb2e81",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "docs/er-diagram.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "er-diagramからのアウトゴーイングリンク"
+            }
+          },
+          {
+            "id": "44533ff73a842ba8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "タグ"
+            }
+          },
+          {
+            "id": "7f50d732338a591d",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "すべてのプロパティ"
+            }
+          },
+          {
+            "id": "0f33dd330d0b9288",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/er-diagram.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "er-diagramのアウトライン"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 416.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:クイックスイッチャーを開く": false,
+      "graph:グラフビューを開く": false,
+      "canvas:新規キャンバスを作成": false,
+      "daily-notes:今日のデイリーノートを開く": false,
+      "templates:テンプレートを挿入": false,
+      "command-palette:コマンドパレットを開く": false,
+      "bases:新規ベースを作成": false
+    }
+  },
+  "active": "e0f5bd11a714c675",
+  "lastOpenFiles": [
+    "src/Server/Application/TasksHandlers.cs",
+    "src/Server/Infrastructure/InMemoryTaskRepository.cs",
+    "src/Server/Application/TasksMessages.cs",
+    "src/Server/Application/Interfaces/ITaskRepository.cs",
+    "src/Server/Infrastructure",
+    "src/Server/Application/Tasks",
+    "src/Server/Application/Interfaces",
+    "src/Server/Application/Handlers",
+    "src/Server/Application",
+    "src/Web/obj/a8f8fca8-5a17-49f2-9257-0988df6c0ef8.tmp",
+    "src/Web/Web.Client/obj/970e74e6-80c5-4f7c-989d-8d4598f1f4b9.tmp",
+    "docs/task-add.md",
+    "docs/task-update.md",
+    "docs/tasks-page.md",
+    "docs/tasks-page.canvas",
+    "docs/er-diagram.md",
+    "docs/data-model.md",
+    "無題のファイル.canvas",
+    "README.md",
+    "SETUP.md",
+    "src/Web/wwwroot/images/avatar.png",
+    "web/wwwroot/images/avatar.png",
+    "Web/wwwroot/images/avatar.png",
+    "docs/tasks-show.md"
+  ]
+}

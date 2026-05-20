@@ -1,0 +1,9 @@
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\EmbeddedAttribute.cs
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\ValidatableTypeAttribute.cs
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\Web.Client.csproj.AssemblyReference.cache
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\Web.Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\Web.Client.AssemblyInfoInputs.cache
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\Web.Client.AssemblyInfo.cs
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\Web.Client.csproj.CoreCompileInputs.cache
+C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\Web.Client\obj\Debug\net10.0\Web.Client.MvcApplicationPartsAssemblyInfo.cache
