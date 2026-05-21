@@ -1,2 +1,0 @@
-C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\obj\Debug\net10.0\EmbeddedAttribute.cs
-C:\Users\Kitaura\source\repos_private\tasks_view\src\Web\obj\Debug\net10.0\ValidatableTypeAttribute.cs
