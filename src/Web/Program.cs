@@ -11,6 +11,14 @@ builder.Services.AddRazorComponents()
 // Add BlazorBlueprint services
 builder.Services.AddBlazorBlueprintComponents();
 
+// Register generated API client for server-side rendering and prerendering.
+// Use ApiBaseUrl config if provided; default to docker-compose service name 'server'.
+var apiBase = builder.Configuration["ApiBaseUrl"] ?? "http://server:5000";
+builder.Services.AddHttpClient<Web.Client.Api.IClient, Web.Client.Api.Client>(client =>
+{
+    client.BaseAddress = new Uri(apiBase);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
