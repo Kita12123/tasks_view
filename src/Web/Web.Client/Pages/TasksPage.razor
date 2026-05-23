@@ -60,20 +60,26 @@
         <table class="w-full table-auto border-collapse">
             <thead>
                 <tr class="text-left">
+                    <th class="px-2 py-1">完了</th>
                     <th class="px-2 py-1">タイトル</th>
                     <th class="px-2 py-1">内容</th>
                     <th class="px-2 py-1">日付</th>
-                    <th class="px-2 py-1">完了</th>
+                    <th class="px-2 py-1">操作</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var it in tasks.Items)
                 {
-                    <tr>
-                        <td class="border px-2 py-1">@it.Title</td>
-                        <td class="border px-2 py-1">@it.Content</td>
+                    <tr class="@(it.Completed ? "bg-gray-100" : "")">
+                        <td class="border px-2 py-1">
+                            <input type="checkbox" checked="@it.Completed" @onchange="e => ToggleCompleteAsync(it, (bool)e.Value)" />
+                        </td>
+                        <td class="border px-2 py-1 @(it.Completed ? "line-through text-gray-500" : "")" contenteditable="true" @onblur="e => OnTitleBlurAsync(it, (string)e.Value)">@it.Title</td>
+                        <td class="border px-2 py-1" contenteditable="true" @onblur="e => OnContentBlurAsync(it, (string)e.Value)">@it.Content</td>
                         <td class="border px-2 py-1">@((it.DueDate.HasValue) ? it.DueDate.Value.ToLocalTime().ToString("yyyy/MM/dd HH:mm") : "-")</td>
-                        <td class="border px-2 py-1">@((it.Completed) ? "✓" : "")</td>
+                        <td class="border px-2 py-1">
+                            <BbButton Variant="ButtonVariant.Ghost" Size="ButtonSize.Sm" @onclick="() => DeleteTaskAsync(it)">削除</BbButton>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -171,4 +177,80 @@
             isSubmitting = false;
         }
     }
-}
+
+    private async System.Threading.Tasks.Task ToggleCompleteAsync(Web.Client.Api.Task task, bool isCompleted)
+    {
+        try
+        {
+            if (isCompleted)
+            {
+                await Api.CompleteAsync(task.Id.ToString());
+            }
+            else
+            {
+                await Api.UncompleteAsync(task.Id.ToString());
+            }
+            await LoadTasksAsync();
+        }
+        catch (System.Exception ex)
+        {
+            error = $"完了状態の更新に失敗しました: {ex.Message}";
+        }
+    }
+
+    private async System.Threading.Tasks.Task OnTitleBlurAsync(Web.Client.Api.Task task, string newTitle)
+    {
+        if (string.IsNullOrWhiteSpace(newTitle) || newTitle == task.Title)
+            return;
+
+        try
+        {
+            var update = new Web.Client.Api.TaskUpdate { Title = newTitle };
+            await Api.TasksPATCHPATCHAsync(update, task.Id.ToString());
+            task.Title = newTitle;
+        }
+        catch (System.Exception ex)
+        {
+            error = $"タイトルの更新に失敗しました: {ex.Message}";
+        }
+    }
+
+    private async System.Threading.Tasks.Task OnContentBlurAsync(Web.Client.Api.Task task, string newContent)
+    {
+        if (newContent == task.Content)
+            return;
+
+        try
+        {
+            var update = new Web.Client.Api.TaskUpdate { Content = newContent };
+            await Api.TasksPATCHPATCHAsync(update, task.Id.ToString());
+            task.Content = newContent;
+        }
+        catch (System.Exception ex)
+        {
+            error = $"内容の更新に失敗しました: {ex.Message}";
+        }
+    }
+
+    private async System.Threading.Tasks.Task DeleteTaskAsync(Web.Client.Api.Task task)
+    {
+        if (!await Confirm($"タスク「{task.Title}」を削除しますか？"))
+            return;
+
+        try
+        {
+            await Api.TasksDELETEDELETEAsync(task.Id.ToString());
+            await LoadTasksAsync();
+        }
+        catch (System.Exception ex)
+        {
+            error = $"削除に失敗しました: {ex.Message}";
+        }
+    }
+
+    private async System.Threading.Tasks.Task<bool> Confirm(string message)
+    {
+        // Blazor の JS interop を使用して確認ダイアログを表示
+        // 簡易版として、ここではダミー実装
+        return await System.Threading.Tasks.Task.FromResult(true);
+    }

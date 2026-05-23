@@ -48,7 +48,7 @@ namespace Server.Presentation.Controllers
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tasks")]
-        public abstract System.Threading.Tasks.Task<TaskList> TasksGET([Microsoft.AspNetCore.Mvc.FromQuery] string q = null, [Microsoft.AspNetCore.Mvc.FromQuery] string tag = null, [Microsoft.AspNetCore.Mvc.FromQuery] bool? completed = null, [Microsoft.AspNetCore.Mvc.FromQuery] string sort = null, [Microsoft.AspNetCore.Mvc.FromQuery] int? page = 1, [Microsoft.AspNetCore.Mvc.FromQuery] int? pageSize = 25);
+        public abstract System.Threading.Tasks.Task<TaskList> TasksGETGET([Microsoft.AspNetCore.Mvc.FromQuery] string q = null, [Microsoft.AspNetCore.Mvc.FromQuery] string tag = null, [Microsoft.AspNetCore.Mvc.FromQuery] bool? completed = null, [Microsoft.AspNetCore.Mvc.FromQuery] string sort = null, [Microsoft.AspNetCore.Mvc.FromQuery] int? page = 1, [Microsoft.AspNetCore.Mvc.FromQuery] int? pageSize = 25);
 
         /// <summary>
         /// Create a new task
@@ -63,7 +63,7 @@ namespace Server.Presentation.Controllers
         /// </remarks>
         /// <returns>Task created</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("tasks")]
-        public abstract System.Threading.Tasks.Task<Task> TasksPOST([Microsoft.AspNetCore.Mvc.FromBody] TaskCreate body);
+        public abstract System.Threading.Tasks.Task<Task> TasksPOSTPOST([Microsoft.AspNetCore.Mvc.FromBody] TaskCreate body);
 
         /// <summary>
         /// Get a single task by ID
@@ -75,7 +75,7 @@ namespace Server.Presentation.Controllers
         /// </remarks>
         /// <returns>Task found</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}")]
-        public abstract System.Threading.Tasks.Task<Task> TasksGETGET(string taskId);
+        public abstract System.Threading.Tasks.Task<Task> TasksGETGET22(string taskId);
 
         /// <summary>
         /// Replace a task
