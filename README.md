@@ -89,38 +89,26 @@ dotnet build
 dotnet test
 ```
 
-開発の基本フロー: まずサーバを起動し、ブラウザで http://localhost:5000 を開いてください。
+開発の基本フロー: Docker Compose を使って全サービス（DB, API, フロント, リバースプロキシ）を一括起動します（推奨）。
 
-### Docker: 1コマンドで起動
+必要条件: Docker（Windows では Docker Desktop）がインストールされ、起動していること。
 
-Docker Compose を使って全サービス（DB, API, フロント, リバースプロキシ）を一括で起動できます。ビルドと起動:
+ビルドと起動（バックグラウンド実行）:
 
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
 
-起動後、ブラウザで http://localhost:8080 を開いてください。停止するには:
+アクセス: ブラウザで http://localhost:8080 を開いてください。
+
+停止:
 
 ```bash
 docker compose down
 ```
 
-WSL で実行する方法（推奨）
-
-- WSL 内で直接実行:
-  1. WSL のターミナル（例: Ubuntu）を開く
-  2. リポジトリのルートに移動してスクリプトを実行:
+補足: openapi.yml を編集した場合はクライアントを再生成してください（ホスト環境で実行）:
 
 ```bash
-bash ./scripts/docker-up-wsl.sh
+npx nswag run nswag.json
 ```
-
-- Windows PowerShell から WSL 経由で実行（簡単）:
-
-```powershell
-.\scripts\run-docker-wsl.ps1
-```
-
-PowerShell スクリプトは現在のディレクトリを WSL パスに変換し、WSL 内でスクリプトを実行します。WSL 側で docker が利用可能（Docker Desktop の WSL 統合や WSL 内の Docker CLI）であることを確認してください。
-
-
