@@ -48,7 +48,7 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize);
+        System.Threading.Tasks.Task<TaskList> TasksGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -72,7 +72,7 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<TaskList> TasksGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Create a new task
@@ -87,7 +87,7 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body);
+        System.Threading.Tasks.Task<Task> TasksPOSTAsync(TaskCreate body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -103,7 +103,7 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> TasksPOSTAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Get a single task by ID
@@ -115,7 +115,7 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId);
+        System.Threading.Tasks.Task<Task> TasksGETGETAsync(string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -128,7 +128,7 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> TasksGETGETAsync(string taskId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Replace a task
@@ -332,9 +332,9 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize)
+        public virtual System.Threading.Tasks.Task<TaskList> TasksGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize)
         {
-            return TasksGETGETAsync(q, tag, completed, sort, page, pageSize, System.Threading.CancellationToken.None);
+            return TasksGETAsync(q, tag, completed, sort, page, pageSize, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -359,7 +359,7 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<TaskList> TasksGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -466,9 +466,9 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body)
+        public virtual System.Threading.Tasks.Task<Task> TasksPOSTAsync(TaskCreate body)
         {
-            return TasksPOSTPOSTAsync(body, System.Threading.CancellationToken.None);
+            return TasksPOSTAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -485,7 +485,7 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> TasksPOSTAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -580,9 +580,9 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId)
+        public virtual System.Threading.Tasks.Task<Task> TasksGETGETAsync(string taskId)
         {
-            return TasksGETGET22Async(taskId, System.Threading.CancellationToken.None);
+            return TasksGETGETAsync(taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -596,7 +596,7 @@ namespace Web.Client.Api
         /// </remarks>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> TasksGETGETAsync(string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");

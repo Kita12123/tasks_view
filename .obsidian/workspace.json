@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/er-diagram.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "er-diagram"
+              "title": "README"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/er-diagram.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "er-diagramへのバックリンク"
+              "title": "READMEへのバックリンク"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/er-diagram.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "er-diagramからのアウトゴーイングリンク"
+              "title": "READMEからのアウトゴーイングリンク"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/er-diagram.md",
+                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "er-diagramのアウトライン"
+              "title": "READMEのアウトライン"
             }
           }
         ]
@@ -184,22 +184,22 @@
   },
   "active": "e0f5bd11a714c675",
   "lastOpenFiles": [
-    "src/Server/Application/TasksHandlers.cs",
-    "src/Server/Infrastructure/InMemoryTaskRepository.cs",
-    "src/Server/Application/TasksMessages.cs",
-    "src/Server/Application/Interfaces/ITaskRepository.cs",
-    "src/Server/Infrastructure",
-    "src/Server/Application/Tasks",
-    "src/Server/Application/Interfaces",
-    "src/Server/Application/Handlers",
-    "src/Server/Application",
-    "src/Web/obj/a8f8fca8-5a17-49f2-9257-0988df6c0ef8.tmp",
-    "src/Web/Web.Client/obj/970e74e6-80c5-4f7c-989d-8d4598f1f4b9.tmp",
+    "src/Web/Web.Client/bin/Debug/net10.0/Web.Client.pdb",
+    "src/Web/Web.Client/obj/Debug/net10.0/ref/Web.Client.dll",
+    "src/Web/Web.Client/bin/Debug/net10.0/Web.Client.dll",
+    "src/Web/Web.Client/bin/Debug/net10.0/Web.Client.staticwebassets.endpoints.json",
+    "src/Web/Web.Client/bin/Debug/net10.0/Web.Client.staticwebassets.runtime.json",
+    "src/Web/Web.Client/bin/Debug/net10.0/wwwroot/_framework/Web.Client.qa0malqojk.wasm.gz",
+    "src/Web/Web.Client/bin/Debug/net10.0/wwwroot/_framework/Web.Client.qa0malqojk.wasm",
+    "src/Web/Web.Client/bin/Debug/net10.0/wwwroot/_framework/Web.Client.odrqerv71g.pdb",
+    "src/Web/Web.Client/bin/Debug/net10.0/wwwroot/_framework/Web.Client.odrqerv71g.pdb.gz",
+    "src/Web/Web.Client/obj/Debug/net10.0/compressed/sm91txl2mx-{0}-k5uf0lnufw-k5uf0lnufw.gz",
+    "src/Web/Web.Client/obj/Debug/net10.0/compressed/8pu861uw3t-{0}-odrqerv71g-odrqerv71g.gz",
+    "docs/er-diagram.md",
     "docs/task-add.md",
     "docs/task-update.md",
     "docs/tasks-page.md",
     "docs/tasks-page.canvas",
-    "docs/er-diagram.md",
     "docs/data-model.md",
     "無題のファイル.canvas",
     "README.md",
