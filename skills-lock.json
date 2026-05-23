@@ -439,6 +439,12 @@
       "skillPath": "skills/changelog-maintenance/SKILL.md",
       "computedHash": "153a641f7da036f5ae36d1d5bf4b397660c5a5bfef08732e68ee53e78247c21f"
     },
+    "chrome-extensions": {
+      "source": "GoogleChrome/modern-web-guidance",
+      "sourceType": "github",
+      "skillPath": "skills/chrome-extensions/SKILL.md",
+      "computedHash": "ee82feb42b8858b287f449600438ee54a4f900860738ce2aa0ef1be831973480"
+    },
     "cicd-pipeline-setup": {
       "source": "aj-geddes/useful-ai-prompts",
       "sourceType": "github",

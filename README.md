@@ -42,6 +42,7 @@
 - API
 	- openapi.yml: `.agents/skills/writing-openapi-specs`
 - コーディング
+	- コード規約: `.agents/skills/modern-web-guidance`
 	- バックエンド: `.agents/skills/start-new-sdk-project`
 - テスト
 	- 画面制御: `.agents/skills/playwright-cli`

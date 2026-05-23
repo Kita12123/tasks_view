@@ -9,6 +9,7 @@ npx skills add kepano/obsidian-skills --all
 npx skills add aj-geddes/useful-ai-prompts --all
 npx skills add speakeasy-api/skills --all
 npx skills add microsoft/playwright-cli --all
+npx skills add GoogleChrome/modern-web-guidance --all
 npx @blazorblueprint/mcp@latest
 npx @playwright/mcp@latest
 ```
