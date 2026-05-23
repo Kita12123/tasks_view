@@ -91,3 +91,18 @@ dotnet test
 
 開発の基本フロー: まずサーバを起動し、ブラウザで http://localhost:5000 を開いてください。
 
+### Docker: 1コマンドで起動
+
+Docker Compose を使って全サービス（DB, API, フロント, リバースプロキシ）を一括で起動できます。ビルドと起動:
+
+```bash
+docker compose up --build
+```
+
+起動後、ブラウザで http://localhost:8080 を開いてください。停止するには:
+
+```bash
+docker compose down
+```
+
+
