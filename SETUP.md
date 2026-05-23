@@ -49,3 +49,18 @@ dotnet add package Mediator.Abstractions
 # create nswag.json
 npx nswag run "../../nswag.json"
 ```
+
+
+## Docker
+
+```shell
+# WSL起動
+wsl
+# パッケージ更新
+sudo apt-get update
+# 依存パッケージをインストール
+sudo apt-get install ca-certificates curl gnupg lsb-release
+# GPG登録 (Dockerをインストールするために必要な公開鍵をインストールする)
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
