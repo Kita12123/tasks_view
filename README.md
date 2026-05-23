@@ -105,4 +105,22 @@ docker compose up --build
 docker compose down
 ```
 
+WSL で実行する方法（推奨）
+
+- WSL 内で直接実行:
+  1. WSL のターミナル（例: Ubuntu）を開く
+  2. リポジトリのルートに移動してスクリプトを実行:
+
+```bash
+bash ./scripts/docker-up-wsl.sh
+```
+
+- Windows PowerShell から WSL 経由で実行（簡単）:
+
+```powershell
+.\scripts\run-docker-wsl.ps1
+```
+
+PowerShell スクリプトは現在のディレクトリを WSL パスに変換し、WSL 内でスクリプトを実行します。WSL 側で docker が利用可能（Docker Desktop の WSL 統合や WSL 内の Docker CLI）であることを確認してください。
+
 
