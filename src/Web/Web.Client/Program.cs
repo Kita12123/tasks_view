@@ -7,6 +7,10 @@ builder.Services.AddBlazorBlueprintComponents();
 
 builder.Services.AddScoped(sp => new System.Net.Http.HttpClient { BaseAddress = new System.Uri(builder.HostEnvironment.BaseAddress) });
 
-builder.Services.AddScoped<Web.Client.Api.IClient>(sp => new Web.Client.Api.Client(sp.GetRequiredService<System.Net.Http.HttpClient>()));
+builder.Services.AddScoped<Web.Client.Api.IClient>(sp => {
+    var http = sp.GetRequiredService<System.Net.Http.HttpClient>();
+    var client = new Web.Client.Api.Client(http) { BaseUrl = builder.HostEnvironment.BaseAddress };
+    return client;
+});
 
 await builder.Build().RunAsync();
