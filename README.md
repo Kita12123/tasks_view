@@ -91,12 +91,19 @@ dotnet test
 
 開発の基本フロー: Docker Compose を使って全サービス（DB, API, フロント, リバースプロキシ）を一括起動します（推奨）。
 
-必要条件: Docker（Windows では Docker Desktop）がインストールされ、起動していること。
+必要条件: Docker がインストールされ、WSL 統合が有効であること（Windows の場合）。
 
-ビルドと起動（バックグラウンド実行）:
+起動（WSL 推奨）:
 
 ```bash
+# WSL のシェル（例: Ubuntu）を開き、リポジトリのルートで実行
 docker compose up --build -d
+```
+
+Windows の PowerShell から起動したい場合は補助スクリプトを利用できます（WSL を呼び出します）:
+
+```powershell
+.\scripts\run-docker-wsl.ps1
 ```
 
 アクセス: ブラウザで http://localhost:8080 を開いてください。
