@@ -45,3 +45,49 @@
 	- バックエンド: `.agents/skills/start-new-sdk-project`
 - テスト
 	- 画面制御: `.agents/skills/playwright-cli`
+
+## ビルドと実行
+
+前提: .NET 10 SDK と Node.js (npx) がインストールされていること
+
+- クライアント生成 (openapi 変更時):
+
+```bash
+npx nswag run nswag.json
+```
+
+- サーバ起動:
+
+```bash
+cd src\Server
+dotnet run
+```
+
+- フロント起動 (ホスト経由):
+
+```bash
+cd src\Web
+dotnet run
+```
+
+  またはクライアント単体でビルド/確認:
+
+```bash
+cd src\Web\Web.Client
+dotnet build
+```
+
+- 全体ビルド:
+
+```bash
+dotnet build
+```
+
+- テスト実行:
+
+```bash
+dotnet test
+```
+
+開発の基本フロー: まずサーバを起動し、ブラウザで http://localhost:5000 を開いてください。
+
