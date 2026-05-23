@@ -14,9 +14,15 @@ builder.Services.AddBlazorBlueprintComponents();
 // Register generated API client for server-side rendering and prerendering.
 // Use ApiBaseUrl config if provided; default to docker-compose service name 'server'.
 var apiBase = builder.Configuration["ApiBaseUrl"] ?? "http://server:5000";
-builder.Services.AddHttpClient<Web.Client.Api.IClient, Web.Client.Api.Client>(client =>
+
+// Configure typed HttpClient and ensure generated client's BaseUrl property matches the service name
+builder.Services.AddHttpClient("server-api", client =>
 {
     client.BaseAddress = new Uri(apiBase);
+}).AddTypedClient<Web.Client.Api.IClient>((httpClient, sp) =>
+{
+    var c = new Web.Client.Api.Client(httpClient) { BaseUrl = apiBase };
+    return c;
 });
 
 var app = builder.Build();
