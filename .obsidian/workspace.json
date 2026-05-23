@@ -184,6 +184,8 @@
   },
   "active": "e0f5bd11a714c675",
   "lastOpenFiles": [
+    "node_modules/playwright-core/lib/tools/dashboard/appIcon.png",
+    "node_modules/playwright-core/lib/tools/dashboard",
     "test-results",
     "test-results/add-task-Add-new-task-with-UI-test-data/error-context.md",
     "test-results/add-task-Add-new-task-with-UI-test-data",
@@ -198,7 +200,6 @@
     "package-lock.json",
     "node_modules/playwright-core/lib/vite/traceViewer/manifest.webmanifest",
     "node_modules/playwright-core/ThirdPartyNotices.txt",
-    "node_modules/playwright-core/lib/vite/traceViewer/codicon.DCmgc-ay.ttf",
     "node_modules/playwright-core/lib/vite/dashboard/assets/safari-na3_-uQk.svg",
     "node_modules/playwright-core/lib/vite/traceViewer/playwright-logo.svg",
     "node_modules/playwright-core/lib/vite/recorder/playwright-logo.svg",

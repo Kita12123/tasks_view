@@ -16,19 +16,19 @@ public class TasksController : ControllerBase
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
-    public override async System.Threading.Tasks.Task<Server.Presentation.Controllers.TaskList> TasksGET(string q = null, string tag = null, bool? completed = null, string sort = null, int? page = 1, int? pageSize = 25)
+    public override async System.Threading.Tasks.Task<Server.Presentation.Controllers.TaskList> TasksGETGET(string q = null, string tag = null, bool? completed = null, string sort = null, int? page = 1, int? pageSize = 25)
     {
         var req = new ListTasksQuery(q, tag, completed, sort, page ?? 1, pageSize ?? 25);
         return await _mediator.Send(req);
     }
 
-    public override async System.Threading.Tasks.Task<Server.Presentation.Controllers.Task> TasksPOST(Server.Presentation.Controllers.TaskCreate body)
+    public override async System.Threading.Tasks.Task<Server.Presentation.Controllers.Task> TasksPOSTPOST(Server.Presentation.Controllers.TaskCreate body)
     {
         var req = new CreateTaskCommand(body);
         return await _mediator.Send(req);
     }
 
-    public override async System.Threading.Tasks.Task<Server.Presentation.Controllers.Task> TasksGETGET(string taskId)
+    public override async System.Threading.Tasks.Task<Server.Presentation.Controllers.Task> TasksGETGET22(string taskId)
     {
         if (!Guid.TryParse(taskId, out var id)) throw new ArgumentException("Invalid taskId", nameof(taskId));
         var req = new GetTaskQuery(id);
@@ -68,3 +68,4 @@ public class TasksController : ControllerBase
         return await _mediator.Send(new UncompleteTaskCommand(id));
     }
 }
+
