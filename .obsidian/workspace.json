@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "252491f521872895",
+        "id": "53110f85bd52f33c",
         "type": "tabs",
         "children": [
           {
-            "id": "e0f5bd11a714c675",
+            "id": "baada6822348812c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "新規タブ"
             }
           }
         ]
@@ -94,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "READMEへのバックリンク"
+              "title": "バックリンク"
             }
           },
           {
@@ -113,12 +108,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "READMEからのアウトゴーイングリンク"
+              "title": "アウトゴーイングリンク"
             }
           },
           {
@@ -156,13 +150,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "READMEのアウトライン"
+              "title": "アウトライン"
             }
           }
         ]
@@ -182,24 +175,32 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "e0f5bd11a714c675",
+  "active": "baada6822348812c",
   "lastOpenFiles": [
-    "node_modules/playwright-core/lib/tools/dashboard/appIcon.png",
-    "node_modules/playwright-core/lib/tools/dashboard",
-    "test-results",
-    "test-results/add-task-Add-new-task-with-UI-test-data/error-context.md",
-    "test-results/add-task-Add-new-task-with-UI-test-data",
-    "add-task.spec.ts",
+    "src/Web/bin/Debug/net10.0/Web.pdb",
+    "src/Web/obj/Debug/net10.0/ref/Web.dll",
+    "src/Web/bin/Debug/net10.0/Web.dll",
+    "src/Web/bin/Debug/net10.0/Web.runtimeconfig.json",
+    "src/Web/obj/Debug/net10.0/Web.genruntimeconfig.cache",
+    "src/Web/bin/Debug/net10.0/Web.deps.json",
+    "src/Web/bin/Debug/net10.0/BlazorDebugProxy/Newtonsoft.Json.dll",
+    "src/Web/bin/Debug/net10.0/BlazorDebugProxy/Microsoft.SymbolStore.dll",
+    "src/Web/bin/Debug/net10.0/BlazorDebugProxy/Microsoft.NET.WebAssembly.Webcil.dll",
+    "src/Web/bin/Debug/net10.0/BlazorDebugProxy/Microsoft.FileFormats.dll",
+    "src/Web/bin/Debug/net10.0/BlazorDebugProxy/Microsoft.CodeAnalysis.Scripting.dll",
     "after-save.png",
+    "docs/task-add.md",
+    "docs/tasks-show.md",
+    "docs/tasks-page.canvas",
+    "docs/tasks-page.md",
+    "docs/task-update.md",
+    "docs/data-model.md",
+    "README.md",
+    "node_modules/playwright-core/lib/tools/dashboard/appIcon.png",
+    "test-results/add-task-Add-new-task-with-UI-test-data/error-context.md",
     "before-save.png",
-    "debug-task.spec.ts",
     "modal-opened.png",
-    "inspect2.spec.ts",
     "page-before-click.png",
-    "inspect.spec.ts",
-    "package-lock.json",
-    "node_modules/playwright-core/lib/vite/traceViewer/manifest.webmanifest",
-    "node_modules/playwright-core/ThirdPartyNotices.txt",
     "node_modules/playwright-core/lib/vite/dashboard/assets/safari-na3_-uQk.svg",
     "node_modules/playwright-core/lib/vite/traceViewer/playwright-logo.svg",
     "node_modules/playwright-core/lib/vite/recorder/playwright-logo.svg",
@@ -217,20 +218,12 @@
     "node_modules/playwright-core/lib/tools/cli-client/skill/references/playwright-tests.md",
     "node_modules/playwright-core/lib/tools/cli-client/skill/references/element-attributes.md",
     "node_modules/playwright-core/lib/tools/cli-client/skill/SKILL.md",
-    "node_modules/playwright-core/lib/server/chromium/appIcon.png",
     "node_modules/playwright/README.md",
     "node_modules/playwright/lib/agents/playwright-test-planner.agent.md",
     "node_modules/playwright/lib/agents/playwright-test-plan.prompt.md",
     "node_modules/playwright/lib/agents/playwright-test-healer.agent.md",
     "node_modules/playwright/lib/agents/playwright-test-heal.prompt.md",
     "node_modules/playwright/lib/agents/playwright-test-generator.agent.md",
-    "node_modules/playwright/lib/agents/playwright-test-generate.prompt.md",
-    "node_modules/playwright/lib/agents/playwright-test-coverage.prompt.md",
-    "docs/er-diagram.md",
-    "docs/task-add.md",
-    "docs/task-update.md",
-    "docs/tasks-page.md",
-    "docs/tasks-page.canvas",
     "無題のファイル.canvas"
   ]
 }

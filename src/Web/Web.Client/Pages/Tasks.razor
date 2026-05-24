@@ -1,0 +1,90 @@
+@page "/tasks"
+@inject Web.Client.Api.IClient ApiClient
+@inject NavigationManager NavigationManager
+
+<h1>Tasks</h1>
+<button @onclick="CreateTask">New Task</button>
+
+@if (loading)
+{
+    <p>Loading...</p>
+}
+else if (tasks == null || tasks.Items == null || tasks.Items.Count == 0)
+{
+    <p>No tasks</p>
+}
+else
+{
+    <table class="bp-table">
+        <thead>
+            <tr><th>Title</th><th>Due</th><th>Completed</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var t in tasks.Items)
+            {
+                <tr>
+                    <td>@t.Title</td>
+                    <td>@(t.DueDate.HasValue ? t.DueDate.Value.ToString("yyyy-MM-dd") : "")</td>
+                    <td>@(t.Completed ? "Yes" : "No")</td>
+                    <td>
+                        <button @onclick="() => ToggleComplete(t)">@((t.Completed) ? "Uncomplete" : "Complete")</button>
+                        <button @onclick="() => Edit(t.Id)">Edit</button>
+                        <button @onclick="() => Delete(t.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Web.Client.Api.TaskList? tasks;
+    private bool loading = true;
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        await Load();
+    }
+
+    private async System.Threading.Tasks.Task Load()
+    {
+        loading = true;
+        try
+        {
+            tasks = await ApiClient.TasksGETGETAsync(null, null, null, null, 1, 100);
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private void CreateTask()
+    {
+        NavigationManager.NavigateTo("/tasks/new");
+    }
+
+    private void Edit(System.Guid id)
+    {
+        NavigationManager.NavigateTo($"/tasks/{id}");
+    }
+
+    private async System.Threading.Tasks.Task Delete(System.Guid id)
+    {
+        await ApiClient.TasksDELETEDELETEAsync(id.ToString());
+        await Load();
+    }
+
+    private async System.Threading.Tasks.Task ToggleComplete(Web.Client.Api.Task t)
+    {
+        if (t.Completed)
+        {
+            await ApiClient.UncompleteAsync(t.Id.ToString());
+        }
+        else
+        {
+            await ApiClient.CompleteAsync(t.Id.ToString());
+        }
+        await Load();
+    }
+}
