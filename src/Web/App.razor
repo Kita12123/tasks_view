@@ -1,6 +1,7 @@
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web
 @using Web.Client
+@inject NavigationManager NavigationManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,16 @@
     <HeadOutlet />
 </head>
 <body class="font-sans antialiased">
-    <Routes @rendermode="InteractiveAuto" />
+    <ErrorBoundary>
+        <ErrorContent>
+            <div class="p-4 bg-destructive text-destructive-foreground">
+                <h2>アプリケーションエラー</h2>
+                <pre>@context.Error.ToString()</pre>
+                <button class="mt-2 px-3 py-1 bg-primary text-white" @onclick="() => NavigationManager.NavigateTo(NavigationManager.Uri, true)">Reload</button>
+            </div>
+        </ErrorContent>
+        <Routes @rendermode="InteractiveAuto" />
+    </ErrorBoundary>
 
     <div id="blazor-error-ui" class="hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-destructive text-destructive-foreground">
         An error has occurred. This application may no longer respond until reloaded.
