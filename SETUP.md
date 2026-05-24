@@ -41,16 +41,16 @@ dotnet new webapi -o Server --no-https -n Server
 cd Server
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Swashbuckle.AspNetCore
 # Microsoft.AspNetCore.Mvc.NewtonsoftJson is not required; use System.Text.Json (built-in)
 dotnet add package Mediator.SourceGenerator
 dotnet add package Mediator.Abstractions
-
-# Code Generate.
-# create nswag.json
-npx nswag run "../../nswag.json"
 ```
 
+## Code Generate
+
+```shell
+npx nswag run "../../nswag.json"
+```
 
 ## Docker
 

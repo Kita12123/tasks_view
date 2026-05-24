@@ -8,7 +8,7 @@
 
 <div>
     <label>Title</label>
-    <input id="title" @bind="model.Title" />
+    <BbInput id="title" @bind-Value="model.Title" />
 </div>
 <div>
     <label>Content</label>
@@ -23,8 +23,8 @@
     {
         <div class="text-destructive">@saveError</div>
     }
-    <button id="save" @onclick="Save">保存</button>
-    <button id="cancel" @onclick="Cancel">キャンセル</button>
+    <BbButton id="save" @onclick="Save">保存</BbButton>
+    <BbButton id="cancel" Variant="ButtonVariant.Outline" @onclick="Cancel">キャンセル</BbButton>
 </div>
 
 @code {

@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 
 <h1>Tasks</h1>
-<button @onclick="CreateTask">＋ タスクを追加</button>
+<BbButton @onclick="CreateTask">＋ タスクを追加</BbButton>
 
 @if (loading)
 {
@@ -20,12 +20,12 @@ else
             <TaskFilters OnSearch="OnSearch" />
             <TaskList Items="tasks.Items" OnToggle="ToggleComplete" OnEdit="Edit" OnDelete="Delete" OnSelect="SelectTask" />
             <div style="margin-top:8px;">
-                <button @onclick="PrevPage">前へ</button>
-                <button @onclick="NextPage">次へ</button>
+                <BbButton Variant="ButtonVariant.Outline" @onclick="PrevPage">前へ</BbButton>
+                <BbButton @onclick="NextPage">次へ</BbButton>
             </div>
         </div>
         <div style="width:360px;">
-                <TaskDetail Item="selectedTask" OnEdit="Edit" OnToggleComplete="ToggleComplete" OnDelete="Delete" />
+            <TaskDetail Item="selectedTask" OnEdit="Edit" OnToggleComplete="ToggleComplete" OnDelete="Delete" />
         </div>
     </div>
 }

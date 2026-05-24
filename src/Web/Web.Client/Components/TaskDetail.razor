@@ -13,9 +13,9 @@ else
         <div class="task-meta">期日: @(Item.DueDate.HasValue ? Item.DueDate.Value.ToString("yyyy-MM-dd") : "なし")</div>
         <div class="task-tags">タグ: @(Item.Tags != null ? string.Join(", ", Item.Tags) : "-")</div>
         <div class="task-actions">
-            <button @onclick="() => OnEdit.InvokeAsync(Item.Id)">編集</button>
-            <button @onclick="() => OnToggleComplete.InvokeAsync(Item)">@((Item.Completed) ? "未完了" : "完了")</button>
-            <button @onclick="() => OnDelete.InvokeAsync(Item.Id)">削除</button>
+            <BbButton Variant="ButtonVariant.Secondary" Size="ButtonSize.Small" @onclick="() => OnEdit.InvokeAsync(Item.Id)">編集</BbButton>
+            <BbButton Variant="ButtonVariant.Default" Size="ButtonSize.Small" @onclick="() => OnToggleComplete.InvokeAsync(Item)">@((Item.Completed) ? "未完了" : "完了")</BbButton>
+            <BbButton Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" @onclick="() => OnDelete.InvokeAsync(Item.Id)">削除</BbButton>
         </div>
     </section>
 }

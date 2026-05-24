@@ -1,8 +1,8 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="task-filters" style="display:flex;gap:8px;align-items:center;">
-    <input placeholder="タスクを検索" @bind="keyword" @onkeydown="OnKeyDown" />
-    <button @onclick="Apply">検索</button>
+    <BbInput Placeholder="タスクを検索" @bind-Value="keyword" @onkeydown="OnKeyDown" />
+    <BbButton @onclick="Apply">検索</BbButton>
 </div>
 
 @code {

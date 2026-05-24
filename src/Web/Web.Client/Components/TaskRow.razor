@@ -9,8 +9,8 @@
     <td>@(Truncate(Item.Content, 100))</td>
     <td>@(Item.DueDate.HasValue ? Item.DueDate.Value.ToString("yyyy-MM-dd") : "")</td>
     <td>
-        <button @onclick="Edit">編集</button>
-        <button @onclick="Delete">削除</button>
+        <BbButton Variant="ButtonVariant.Secondary" Size="ButtonSize.Small" @onclick="Edit">編集</BbButton>
+        <BbButton Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" @onclick="Delete">削除</BbButton>
     </td>
 </tr>
 
