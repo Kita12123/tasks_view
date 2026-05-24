@@ -2,6 +2,10 @@
 @inject Web.Client.Api.IClient ApiClient
 @inject NavigationManager NavigationManager
 
+<HeadContent>
+    <link href="_content/BlazorBlueprint.Components/blazorblueprint.css" rel="stylesheet" />
+</HeadContent>
+
 <h1>Tasks</h1>
 <button @onclick="CreateTask">＋ タスクを追加</button>
 
