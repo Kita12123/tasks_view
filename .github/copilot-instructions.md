@@ -38,12 +38,14 @@ npx nswag run nswag.json
 
 ## Agents skills
 
-- ドキュメント関連を操作する際は、以下のスキルを参照してください。
-	- 記述ルール: `.agents/skills/obsidian-markdown`
+- 設計
+	- ドキュメント: `.agents/skills/obsidian-markdown`
 	- 画面デザイン: `.agents/skills/json-canvas`
 	- ER図: `.agents/skills/architecture-diagrams`
-  - openapi.yml: `.agents/skills/writing-openapi-specs`
-- コード関連を操作する際は、以下のスキルを参照してください。
-	- コード規約: `.agents/skills/start-new-sdk-project`
+- API
+	- openapi.yml: [`.agents/skills/writing-openapi-specs`, `.agents/skills/my-openapi-rule.md`]
+- コーディング
+	- コード規約: [`.agents/skills/modern-web-guidance`, `.agents/skills/my-code-rule.md`]
+	- バックエンド: `.agents/skills/start-new-sdk-project`
 - テスト
 	- 画面制御: `.agents/skills/playwright-cli`

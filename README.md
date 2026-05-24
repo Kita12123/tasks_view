@@ -33,20 +33,6 @@
 - バージョン管理: GitHub
 
 
-## Agents skills
-
-- 設計
-	- ドキュメント: `.agents/skills/obsidian-markdown`
-	- 画面デザイン: `.agents/skills/json-canvas`
-	- ER図: `.agents/skills/architecture-diagrams`
-- API
-	- openapi.yml: `.agents/skills/writing-openapi-specs`
-- コーディング
-	- コード規約: `.agents/skills/modern-web-guidance`
-	- バックエンド: `.agents/skills/start-new-sdk-project`
-- テスト
-	- 画面制御: `.agents/skills/playwright-cli`
-
 ## ビルドと実行
 
 前提: .NET 10 SDK と Node.js (npx) がインストールされていること
