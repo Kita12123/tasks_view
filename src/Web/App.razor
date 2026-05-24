@@ -19,14 +19,16 @@
 </head>
 <body class="font-sans antialiased">
     <ErrorBoundary>
-        <ErrorContent>
+        <ChildContent>
+            <Routes @rendermode="InteractiveAuto" />
+        </ChildContent>
+        <ErrorContent Context="err">
             <div class="p-4 bg-destructive text-destructive-foreground">
                 <h2>アプリケーションエラー</h2>
-                <pre>@context.Error.ToString()</pre>
+                <pre>@err.ToString()</pre>
                 <button class="mt-2 px-3 py-1 bg-primary text-white" @onclick="() => NavigationManager.NavigateTo(NavigationManager.Uri, true)">Reload</button>
             </div>
         </ErrorContent>
-        <Routes @rendermode="InteractiveAuto" />
     </ErrorBoundary>
 
     <div id="blazor-error-ui" class="hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-destructive text-destructive-foreground">
