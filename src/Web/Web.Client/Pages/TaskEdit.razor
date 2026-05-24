@@ -8,19 +8,19 @@
 
 <div>
     <label>Title</label>
-    <input @bind="model.Title" />
+    <input id="title" @bind="model.Title" />
 </div>
 <div>
     <label>Content</label>
-    <textarea @bind="model.Content"></textarea>
+    <textarea id="content" @bind="model.Content"></textarea>
 </div>
 <div>
     <label>Due</label>
-    <input type="text" @bind="dueDateString" />
+    <input id="duedate" type="text" @bind="dueDateString" />
 </div>
 <div>
-    <button @onclick="Save">Save</button>
-    <button @onclick="Cancel">Cancel</button>
+    <button id="save" @onclick="Save">保存</button>
+    <button id="cancel" @onclick="Cancel">キャンセル</button>
 </div>
 
 @code {

@@ -13,7 +13,12 @@ builder.Services.AddBlazorBlueprintComponents();
 
 // Register generated API client for server-side rendering and prerendering.
 // Use ApiBaseUrl config if provided; default to docker-compose service name 'server'.
-var apiBase = builder.Configuration["ApiBaseUrl"] ?? "http://server:5000";
+var apiBase = builder.Configuration["ApiBaseUrl"];
+if (string.IsNullOrEmpty(apiBase))
+{
+    // On local development prefer localhost so prerendering and server-side calls work without docker DNS
+    apiBase = builder.Environment.IsDevelopment() ? "http://localhost:5000" : "http://server:5000";
+}
 // Append the API prefix used by server controllers
 var apiPrefix = apiBase.TrimEnd('/') + "/api/";
 
@@ -28,6 +33,9 @@ builder.Services.AddHttpClient("server-api", client =>
 });
 
 var app = builder.Build();
+
+// Log configured ApiBase for debugging Playwright prerender/API calls
+app.Logger.LogInformation("Configured ApiBase: {ApiBase}", apiBase);
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())

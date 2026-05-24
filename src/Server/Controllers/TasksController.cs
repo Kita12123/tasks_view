@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Server.Application.Tasks;
 using global::Mediator;
 
@@ -25,7 +26,9 @@ public class TasksController : ControllerBase
     public override async System.Threading.Tasks.Task<Task> CreateTask(TaskCreate body)
     {
         var req = new CreateTaskCommand(body);
-        return await _mediator.Send(req);
+        var created = await _mediator.Send(req);
+        Response.StatusCode = StatusCodes.Status201Created;
+        return created;
     }
 
     public override async System.Threading.Tasks.Task<Task> GetTask(string taskId)
