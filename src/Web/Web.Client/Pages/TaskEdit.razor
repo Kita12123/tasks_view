@@ -38,22 +38,30 @@
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
-        if (IsNew)
+        try
         {
-            model.Tags = new System.Collections.Generic.List<string>();
-            model.DueDate = System.DateTimeOffset.Now;
-            return;
-        }
+            if (IsNew)
+            {
+                model.Tags = new System.Collections.Generic.List<string>();
+                model.DueDate = System.DateTimeOffset.Now;
+                return;
+            }
 
-        var t = await ApiClient.GetTaskAsync(Id.ToString());
-        model.Title = t.Title;
-        model.Content = t.Content;
-        if (t.DueDate.HasValue)
-        {
-            dueDateString = t.DueDate.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
-            model.DueDate = t.DueDate.Value;
+            var t = await ApiClient.GetTaskAsync(Id.ToString());
+            model.Title = t.Title;
+            model.Content = t.Content;
+            if (t.DueDate.HasValue)
+            {
+                dueDateString = t.DueDate.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
+                model.DueDate = t.DueDate.Value;
+            }
+            model.Tags = t.Tags ?? new System.Collections.Generic.List<string>();
         }
-        model.Tags = t.Tags ?? new System.Collections.Generic.List<string>();
+        catch (Exception ex)
+        {
+            saveError = ex.Message;
+            Console.Error.WriteLine($"OnInitialized error: {ex}");
+        }
     }
 
     private async System.Threading.Tasks.Task Save()

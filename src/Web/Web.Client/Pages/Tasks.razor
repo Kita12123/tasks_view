@@ -54,6 +54,10 @@ else
         {
             tasks = await ApiClient.ListTasksAsync(null, null, null, null, 1, 100);
         }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Load error: {ex}");
+        }
         finally
         {
             loading = false;
