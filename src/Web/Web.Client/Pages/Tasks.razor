@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 
 <h1>Tasks</h1>
-<button @onclick="CreateTask">New Task</button>
+<button @onclick="CreateTask">＋ タスクを追加</button>
 
 @if (loading)
 {
@@ -51,7 +51,7 @@ else
         loading = true;
         try
         {
-            tasks = await ApiClient.TasksGETGETAsync(null, null, null, null, 1, 100);
+            tasks = await ApiClient.ListTasksAsync(null, null, null, null, 1, 100);
         }
         finally
         {
@@ -71,7 +71,7 @@ else
 
     private async System.Threading.Tasks.Task Delete(System.Guid id)
     {
-        await ApiClient.TasksDELETEDELETEAsync(id.ToString());
+        await ApiClient.DeleteTaskAsync(id.ToString());
         await Load();
     }
 
@@ -79,11 +79,11 @@ else
     {
         if (t.Completed)
         {
-            await ApiClient.UncompleteAsync(t.Id.ToString());
+            await ApiClient.UncompleteTaskAsync(t.Id.ToString());
         }
         else
         {
-            await ApiClient.CompleteAsync(t.Id.ToString());
+            await ApiClient.CompleteTaskAsync(t.Id.ToString());
         }
         await Load();
     }

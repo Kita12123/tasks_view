@@ -7,4 +7,5 @@ description: A code rule that checks for specific coding patterns and provides f
 
 ## Overview
 - Prefer ValueTask over Task when the result is often available synchronously.
-- Require comment with japanese for public methods. 
+- Require comment with japanese for public methods.
+- Fix/Resolve schema nullability warnings.

@@ -20,6 +20,9 @@
 #pragma warning disable 8625 // Disable "CS8625 Cannot convert null literal to non-nullable reference type"
 #pragma warning disable 8765 // Disable "CS8765 Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes)."
 
+#pragma warning disable CS8618
+#nullable enable
+
 namespace Server.Presentation.Controllers
 {
     using System = global::System;
@@ -48,7 +51,7 @@ namespace Server.Presentation.Controllers
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tasks")]
-        public abstract System.Threading.Tasks.Task<TaskList> TasksGETGET([Microsoft.AspNetCore.Mvc.FromQuery] string q = null, [Microsoft.AspNetCore.Mvc.FromQuery] string tag = null, [Microsoft.AspNetCore.Mvc.FromQuery] bool? completed = null, [Microsoft.AspNetCore.Mvc.FromQuery] string sort = null, [Microsoft.AspNetCore.Mvc.FromQuery] int? page = 1, [Microsoft.AspNetCore.Mvc.FromQuery] int? pageSize = 25);
+        public abstract System.Threading.Tasks.Task<TaskList> ListTasks([Microsoft.AspNetCore.Mvc.FromQuery] string? q = null, [Microsoft.AspNetCore.Mvc.FromQuery] string? tag = null, [Microsoft.AspNetCore.Mvc.FromQuery] bool? completed = null, [Microsoft.AspNetCore.Mvc.FromQuery] string? sort = null, [Microsoft.AspNetCore.Mvc.FromQuery] int? page = 1, [Microsoft.AspNetCore.Mvc.FromQuery] int? pageSize = 25);
 
         /// <summary>
         /// Create a new task
@@ -61,9 +64,10 @@ namespace Server.Presentation.Controllers
         /// <br/>  3. DB に挿入し、201 を返す。可能なら Location ヘッダに /tasks/{id} を設定する。
         /// <br/>  4. 入力不正時は 400 を返す。
         /// </remarks>
+        /// <param name="body">新規作成するタスクのペイロード</param>
         /// <returns>Task created</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("tasks")]
-        public abstract System.Threading.Tasks.Task<Task> TasksPOSTPOST([Microsoft.AspNetCore.Mvc.FromBody] TaskCreate body);
+        public abstract System.Threading.Tasks.Task<Task> CreateTask([Microsoft.AspNetCore.Mvc.FromBody] TaskCreate body);
 
         /// <summary>
         /// Get a single task by ID
@@ -73,9 +77,10 @@ namespace Server.Presentation.Controllers
         /// <br/>  1. path の taskId（UUID）で DB を検索し、存在すれば Task を返す。
         /// <br/>  2. 存在しない場合は 404 を返す（#/components/responses/NotFound を利用）。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task found</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}")]
-        public abstract System.Threading.Tasks.Task<Task> TasksGETGET22(string taskId);
+        public abstract System.Threading.Tasks.Task<Task> GetTask(string taskId);
 
         /// <summary>
         /// Replace a task
@@ -86,9 +91,11 @@ namespace Server.Presentation.Controllers
         /// <br/>  2. createdAt は保持し、updatedAt を現在時刻に更新する。
         /// <br/>  3. バリデーション失敗は 400、タスク未発見は 404 を返す。
         /// </remarks>
+        /// <param name="body">タスクの全体置換ペイロード（title 必須）</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task replaced</returns>
         [Microsoft.AspNetCore.Mvc.HttpPut, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}")]
-        public abstract System.Threading.Tasks.Task<Task> TasksPUTPUT([Microsoft.AspNetCore.Mvc.FromBody] TaskCreate body, string taskId);
+        public abstract System.Threading.Tasks.Task<Task> ReplaceTask([Microsoft.AspNetCore.Mvc.FromBody] TaskCreate body, string taskId);
 
         /// <summary>
         /// Update one or more fields on a task
@@ -100,9 +107,11 @@ namespace Server.Presentation.Controllers
         /// <br/>  2. contenteditable によるインライン編集を想定し、頻繁な小さな更新に耐えられるようにする。
         /// <br/>  3. 存在しない場合は 404 を返す。
         /// </remarks>
+        /// <param name="body">部分更新するフィールドを含むペイロード</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         [Microsoft.AspNetCore.Mvc.HttpPatch, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}")]
-        public abstract System.Threading.Tasks.Task<Task> TasksPATCHPATCH([Microsoft.AspNetCore.Mvc.FromBody] TaskUpdate body, string taskId);
+        public abstract System.Threading.Tasks.Task<Task> UpdateTask([Microsoft.AspNetCore.Mvc.FromBody] TaskUpdate body, string taskId);
 
         /// <summary>
         /// Delete a task
@@ -112,9 +121,10 @@ namespace Server.Presentation.Controllers
         /// <br/>  1. 指定 taskId を削除する。成功時は 204 を返す。
         /// <br/>  2. タスク未発見なら 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task deleted (no content)</returns>
         [Microsoft.AspNetCore.Mvc.HttpDelete, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}")]
-        public abstract System.Threading.Tasks.Task TasksDELETEDELETE(string taskId);
+        public abstract System.Threading.Tasks.Task DeleteTask(string taskId);
 
         /// <summary>
         /// Mark a task as completed
@@ -124,9 +134,10 @@ namespace Server.Presentation.Controllers
         /// <br/>  1. 指定 taskId の Completed を true に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}/complete")]
-        public abstract System.Threading.Tasks.Task<Task> Complete(string taskId);
+        public abstract System.Threading.Tasks.Task<Task> CompleteTask(string taskId);
 
         /// <summary>
         /// Mark a task as not completed
@@ -136,46 +147,74 @@ namespace Server.Presentation.Controllers
         /// <br/>  1. 指定 taskId の Completed を false に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("tasks/{taskId}/uncomplete")]
-        public abstract System.Threading.Tasks.Task<Task> Uncomplete(string taskId);
+        public abstract System.Threading.Tasks.Task<Task> UncompleteTask(string taskId);
 
     }
 
+    /// <summary>
+    /// タスク情報（取得・更新・削除対象）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Task
     {
 
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// タスクID（UUID）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.Guid Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// タスクタイトル
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスクの詳細（任意）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 期日（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("dueDate")]
         public System.DateTimeOffset? DueDate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("completed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 完了フラグ（true=完了）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("completed")]
         public bool Completed { get; set; } = false;
 
-        [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タグ一覧
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("tags")]
         public System.Collections.Generic.List<string> Tags { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// 作成日時（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("createdAt")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset CreatedAt { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("updatedAt", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 更新日時（ISO 8601、未更新時は null）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("updatedAt")]
         public System.DateTimeOffset? UpdatedAt { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -184,26 +223,41 @@ namespace Server.Presentation.Controllers
 
     }
 
+    /// <summary>
+    /// タスク作成・全体置換リクエスト（title 必須、それ以外は任意）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TaskCreate
     {
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// タイトル（必須）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスクの詳細
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 期日（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("dueDate")]
         public System.DateTimeOffset DueDate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タグ一覧
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("tags")]
         public System.Collections.Generic.List<string> Tags { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -212,28 +266,46 @@ namespace Server.Presentation.Controllers
 
     }
 
+    /// <summary>
+    /// タスク部分更新リクエスト（全フィールド任意、指定されたフィールドのみ更新される）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TaskUpdate
     {
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タイトル
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスクの詳細
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 期日（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("dueDate")]
         public System.DateTimeOffset DueDate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("completed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 完了フラグ（true=完了）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("completed")]
         public bool Completed { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タグ一覧
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("tags")]
         public System.Collections.Generic.List<string> Tags { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -242,25 +314,40 @@ namespace Server.Presentation.Controllers
 
     }
 
+    /// <summary>
+    /// ページネーション対応のタスク一覧レスポンス
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TaskList
     {
 
-        [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスク配列
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("items")]
         public System.Collections.Generic.List<Task> Items { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 合計件数
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("total")]
         public int Total { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("page", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 現在ページ番号（1-based）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("page")]
         public int Page { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("pageSize", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 1ページあたりの件数
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("pageSize")]
         public int PageSize { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -269,19 +356,28 @@ namespace Server.Presentation.Controllers
 
     }
 
+    /// <summary>
+    /// エラーレスポンス（code と message を含む）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Error
     {
 
-        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// エラーコード
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("code")]
         public int Code { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// エラーメッセージ
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("message")]
         public string Message { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }

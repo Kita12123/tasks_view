@@ -40,7 +40,7 @@
             return;
         }
 
-        var t = await ApiClient.TasksGETGET22Async(Id.ToString());
+        var t = await ApiClient.GetTaskAsync(Id.ToString());
         model.Title = t.Title;
         model.Content = t.Content;
         if (t.DueDate.HasValue)
@@ -67,11 +67,11 @@
 
         if (IsNew)
         {
-            await ApiClient.TasksPOSTPOSTAsync(model);
+            await ApiClient.CreateTaskAsync(model);
         }
         else
         {
-            await ApiClient.TasksPUTPUTAsync(model, Id.ToString());
+            await ApiClient.ReplaceTaskAsync(model, Id.ToString());
         }
 
         NavigationManager.NavigateTo("/tasks");

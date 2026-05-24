@@ -27,7 +27,7 @@ cd Web
 dotnet add package BlazorBlueprint.Components
 dotnet add package BlazorBlueprint.Icons.Lucide
 cd Web.Client
-dotnet add package NewtonsoftJson
+# System.Text.Json is built into .NET; no package required
 ```
 
 ## Backend Project
@@ -42,7 +42,7 @@ cd Server
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Swashbuckle.AspNetCore
-dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
+# Microsoft.AspNetCore.Mvc.NewtonsoftJson is not required; use System.Text.Json (built-in)
 dotnet add package Mediator.SourceGenerator
 dotnet add package Mediator.Abstractions
 

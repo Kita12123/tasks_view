@@ -29,7 +29,7 @@ namespace Server.Infrastructure
             _store[sample.Id] = sample;
         }
 
-        public Task<TaskListDto> GetTasksAsync(string q, string tag, bool? completed, string sort, int page, int pageSize)
+        public Task<TaskListDto> GetTasksAsync(string? q, string? tag, bool? completed, string? sort, int page, int pageSize)
         {
             IEnumerable<TaskDto> items = _store.Values;
 
@@ -79,7 +79,7 @@ namespace Server.Infrastructure
             return Task.FromResult(list);
         }
 
-        public Task<TaskDto> GetAsync(Guid id){ _store.TryGetValue(id, out var t); return Task.FromResult(t); }
+        public Task<TaskDto?> GetAsync(Guid id){ _store.TryGetValue(id, out var t); return Task.FromResult<TaskDto?>(t); }
 
         public Task<TaskDto> CreateAsync(TaskCreateDto create)
         {
@@ -97,9 +97,9 @@ namespace Server.Infrastructure
             return Task.FromResult(dto);
         }
 
-        public Task<TaskDto> ReplaceAsync(Guid id, TaskCreateDto create)
+        public Task<TaskDto?> ReplaceAsync(Guid id, TaskCreateDto create)
         {
-            if (!_store.TryGetValue(id, out var existing)) return Task.FromResult<TaskDto>(null);
+            if (!_store.TryGetValue(id, out var existing)) return Task.FromResult<TaskDto?>(null);
             var dto = new TaskDto
             {
                 Id = id,
@@ -112,12 +112,12 @@ namespace Server.Infrastructure
                 UpdatedAt = DateTimeOffset.UtcNow
             };
             _store[id] = dto;
-            return Task.FromResult(dto);
+            return Task.FromResult<TaskDto?>(dto);
         }
 
-        public Task<TaskDto> PatchAsync(Guid id, TaskUpdateDto update)
+        public Task<TaskDto?> PatchAsync(Guid id, TaskUpdateDto update)
         {
-            if (!_store.TryGetValue(id, out var existing)) return Task.FromResult<TaskDto>(null);
+            if (!_store.TryGetValue(id, out var existing)) return Task.FromResult<TaskDto?>(null);
             if (update.Title != null) existing.Title = update.Title;
             if (update.Content != null) existing.Content = update.Content;
             if (update.DueDate != default(DateTimeOffset)) existing.DueDate = update.DueDate;
@@ -125,7 +125,7 @@ namespace Server.Infrastructure
             if (update.Tags != null) existing.Tags = update.Tags;
             existing.UpdatedAt = DateTimeOffset.UtcNow;
             _store[id] = existing;
-            return Task.FromResult(existing);
+            return Task.FromResult<TaskDto?>(existing);
         }
 
         public Task<bool> DeleteAsync(Guid id)
@@ -133,13 +133,13 @@ namespace Server.Infrastructure
             return Task.FromResult(_store.TryRemove(id, out _));
         }
 
-        public Task<TaskDto> SetCompletedAsync(Guid id, bool completed)
+        public Task<TaskDto?> SetCompletedAsync(Guid id, bool completed)
         {
-            if (!_store.TryGetValue(id, out var existing)) return Task.FromResult<TaskDto>(null);
+            if (!_store.TryGetValue(id, out var existing)) return Task.FromResult<TaskDto?>(null);
             existing.Completed = completed;
             existing.UpdatedAt = DateTimeOffset.UtcNow;
             _store[id] = existing;
-            return Task.FromResult(existing);
+            return Task.FromResult<TaskDto?>(existing);
         }
     }
 }

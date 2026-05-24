@@ -18,6 +18,7 @@ paths:
     get:
       tags: [tasks]
       summary: List tasks with pagination and optional filters
+      operationId: listTasks
       description: |
         フロント（docs/tasks-show.md）向け表示ロジック。
         実装手順:
@@ -71,6 +72,7 @@ paths:
     post:
       tags: [tasks]
       summary: Create a new task
+      operationId: createTask
       description: |
         フロント（docs/task-add.md）からの新規作成処理。
         実装手順:
@@ -79,6 +81,7 @@ paths:
           3. DB に挿入し、201 を返す。可能なら Location ヘッダに /tasks/{id} を設定する。
           4. 入力不正時は 400 を返す。
       requestBody:
+        description: 新規作成するタスクのペイロード
         required: true
         content:
           application/json:
@@ -102,12 +105,14 @@ paths:
     parameters:
       - name: taskId
         in: path
+        description: タスクID（UUID）
         required: true
         schema:
           type: string
     get:
       tags: [tasks]
       summary: Get a single task by ID
+      operationId: getTask
       description: |
         実装手順:
           1. path の taskId（UUID）で DB を検索し、存在すれば Task を返す。
@@ -125,12 +130,14 @@ paths:
     put:
       tags: [tasks]
       summary: Replace a task
+      operationId: replaceTask
       description: |
         実装手順:
           1. 指定 taskId のタスクを全件置換する（全体更新）。
           2. createdAt は保持し、updatedAt を現在時刻に更新する。
           3. バリデーション失敗は 400、タスク未発見は 404 を返す。
       requestBody:
+        description: タスクの全体置換ペイロード（title 必須）
         required: true
         content:
           application/json:
@@ -151,6 +158,7 @@ paths:
     patch:
       tags: [tasks]
       summary: Update one or more fields on a task
+      operationId: updateTask
       description: |
         フロント（docs/task-update.md）の要件に合わせた部分更新。
         実装手順:
@@ -158,6 +166,7 @@ paths:
           2. contenteditable によるインライン編集を想定し、頻繁な小さな更新に耐えられるようにする。
           3. 存在しない場合は 404 を返す。
       requestBody:
+        description: 部分更新するフィールドを含むペイロード
         required: true
         content:
           application/json:
@@ -178,6 +187,7 @@ paths:
     delete:
       tags: [tasks]
       summary: Delete a task
+      operationId: deleteTask
       description: |
         実装手順:
           1. 指定 taskId を削除する。成功時は 204 を返す。
@@ -192,6 +202,7 @@ paths:
     post:
       tags: [tasks]
       summary: Mark a task as completed
+      operationId: completeTask
       description: |
         実装手順:
           1. 指定 taskId の Completed を true に設定し、updatedAt を更新する。
@@ -199,6 +210,7 @@ paths:
       parameters:
         - name: taskId
           in: path
+          description: タスクID（UUID）
           required: true
           schema:
             type: string
@@ -216,6 +228,7 @@ paths:
     post:
       tags: [tasks]
       summary: Mark a task as not completed
+      operationId: uncompleteTask
       description: |
         実装手順:
           1. 指定 taskId の Completed を false に設定し、updatedAt を更新する。
@@ -223,6 +236,7 @@ paths:
       parameters:
         - name: taskId
           in: path
+          description: タスクID（UUID）
           required: true
           schema:
             type: string
@@ -240,89 +254,117 @@ components:
   schemas:
     Task:
       type: object
+      description: タスク情報（取得・更新・削除対象）
       required: [id, title, createdAt]
       properties:
         id:
           type: string
           format: uuid
+          description: タスクID（UUID）
         title:
           type: string
+          description: タスクタイトル
         content:
           type: string
           nullable: true
+          description: タスクの詳細（任意）
         dueDate:
           type: string
           format: date-time
           nullable: true
+          description: 期日（ISO 8601）
         completed:
           type: boolean
           default: false
+          description: 完了フラグ（true=完了）
         tags:
           type: array
+          description: タグ一覧
           items:
             type: string
         createdAt:
           type: string
           format: date-time
+          description: 作成日時（ISO 8601）
         updatedAt:
           type: string
           format: date-time
           nullable: true
+          description: 更新日時（ISO 8601、未更新時は null）
 
     TaskCreate:
       type: object
+      description: タスク作成・全体置換リクエスト（title 必須、それ以外は任意）
       required: [title]
       properties:
         title:
           type: string
+          description: タイトル（必須）
         content:
           type: string
+          description: タスクの詳細
         dueDate:
           type: string
           format: date-time
+          description: 期日（ISO 8601）
         tags:
           type: array
+          description: タグ一覧
           items:
             type: string
 
     TaskUpdate:
       type: object
+      description: タスク部分更新リクエスト（全フィールド任意、指定されたフィールドのみ更新される）
       properties:
         title:
           type: string
+          description: タイトル
         content:
           type: string
+          description: タスクの詳細
         dueDate:
           type: string
           format: date-time
+          description: 期日（ISO 8601）
         completed:
           type: boolean
+          description: 完了フラグ（true=完了）
         tags:
           type: array
+          description: タグ一覧
           items:
             type: string
 
     TaskList:
       type: object
+      description: ページネーション対応のタスク一覧レスポンス
       properties:
         items:
           type: array
+          description: タスク配列
           items:
             $ref: '#/components/schemas/Task'
         total:
           type: integer
+          description: 合計件数
         page:
           type: integer
+          description: 現在ページ番号（1-based）
         pageSize:
           type: integer
+          description: 1ページあたりの件数
 
     Error:
       type: object
+      description: エラーレスポンス（code と message を含む）
       properties:
         code:
           type: integer
+          description: エラーコード
         message:
           type: string
+          description: エラーメッセージ
 
   responses:
     NotFound:

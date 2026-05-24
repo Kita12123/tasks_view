@@ -48,7 +48,7 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize);
+        System.Threading.Tasks.Task<TaskList> ListTasksAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -72,7 +72,7 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<TaskList> ListTasksAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Create a new task
@@ -85,9 +85,10 @@ namespace Web.Client.Api
         /// <br/>  3. DB に挿入し、201 を返す。可能なら Location ヘッダに /tasks/{id} を設定する。
         /// <br/>  4. 入力不正時は 400 を返す。
         /// </remarks>
+        /// <param name="body">新規作成するタスクのペイロード</param>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body);
+        System.Threading.Tasks.Task<Task> CreateTaskAsync(TaskCreate body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -101,9 +102,10 @@ namespace Web.Client.Api
         /// <br/>  3. DB に挿入し、201 を返す。可能なら Location ヘッダに /tasks/{id} を設定する。
         /// <br/>  4. 入力不正時は 400 を返す。
         /// </remarks>
+        /// <param name="body">新規作成するタスクのペイロード</param>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> CreateTaskAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Get a single task by ID
@@ -113,9 +115,10 @@ namespace Web.Client.Api
         /// <br/>  1. path の taskId（UUID）で DB を検索し、存在すれば Task を返す。
         /// <br/>  2. 存在しない場合は 404 を返す（#/components/responses/NotFound を利用）。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId);
+        System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -126,9 +129,10 @@ namespace Web.Client.Api
         /// <br/>  1. path の taskId（UUID）で DB を検索し、存在すれば Task を返す。
         /// <br/>  2. 存在しない場合は 404 を返す（#/components/responses/NotFound を利用）。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Replace a task
@@ -139,9 +143,11 @@ namespace Web.Client.Api
         /// <br/>  2. createdAt は保持し、updatedAt を現在時刻に更新する。
         /// <br/>  3. バリデーション失敗は 400、タスク未発見は 404 を返す。
         /// </remarks>
+        /// <param name="body">タスクの全体置換ペイロード（title 必須）</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task replaced</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPUTPUTAsync(TaskCreate body, string taskId);
+        System.Threading.Tasks.Task<Task> ReplaceTaskAsync(TaskCreate body, string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -153,9 +159,11 @@ namespace Web.Client.Api
         /// <br/>  2. createdAt は保持し、updatedAt を現在時刻に更新する。
         /// <br/>  3. バリデーション失敗は 400、タスク未発見は 404 を返す。
         /// </remarks>
+        /// <param name="body">タスクの全体置換ペイロード（title 必須）</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task replaced</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPUTPUTAsync(TaskCreate body, string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> ReplaceTaskAsync(TaskCreate body, string taskId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Update one or more fields on a task
@@ -167,9 +175,11 @@ namespace Web.Client.Api
         /// <br/>  2. contenteditable によるインライン編集を想定し、頻繁な小さな更新に耐えられるようにする。
         /// <br/>  3. 存在しない場合は 404 を返す。
         /// </remarks>
+        /// <param name="body">部分更新するフィールドを含むペイロード</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPATCHPATCHAsync(TaskUpdate body, string taskId);
+        System.Threading.Tasks.Task<Task> UpdateTaskAsync(TaskUpdate body, string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -182,9 +192,11 @@ namespace Web.Client.Api
         /// <br/>  2. contenteditable によるインライン編集を想定し、頻繁な小さな更新に耐えられるようにする。
         /// <br/>  3. 存在しない場合は 404 を返す。
         /// </remarks>
+        /// <param name="body">部分更新するフィールドを含むペイロード</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> TasksPATCHPATCHAsync(TaskUpdate body, string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> UpdateTaskAsync(TaskUpdate body, string taskId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Delete a task
@@ -194,9 +206,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId を削除する。成功時は 204 を返す。
         /// <br/>  2. タスク未発見なら 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task deleted (no content)</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TasksDELETEDELETEAsync(string taskId);
+        System.Threading.Tasks.Task DeleteTaskAsync(string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -207,9 +220,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId を削除する。成功時は 204 を返す。
         /// <br/>  2. タスク未発見なら 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task deleted (no content)</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TasksDELETEDELETEAsync(string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task DeleteTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Mark a task as completed
@@ -219,9 +233,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を true に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> CompleteAsync(string taskId);
+        System.Threading.Tasks.Task<Task> CompleteTaskAsync(string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -232,9 +247,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を true に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> CompleteAsync(string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> CompleteTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Mark a task as not completed
@@ -244,9 +260,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を false に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> UncompleteAsync(string taskId);
+        System.Threading.Tasks.Task<Task> UncompleteTaskAsync(string taskId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -257,9 +274,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を false に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Task> UncompleteAsync(string taskId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Task> UncompleteTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -271,8 +289,8 @@ namespace Web.Client.Api
         #pragma warning restore 8618
 
         private System.Net.Http.HttpClient _httpClient;
-        private static System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
-        private Newtonsoft.Json.JsonSerializerSettings _instanceSettings;
+        private static System.Lazy<System.Text.Json.JsonSerializerOptions> _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings, true);
+        private System.Text.Json.JsonSerializerOptions _instanceSettings;
 
     #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Client(System.Net.Http.HttpClient httpClient)
@@ -283,9 +301,9 @@ namespace Web.Client.Api
             Initialize();
         }
 
-        private static Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
+        private static System.Text.Json.JsonSerializerOptions CreateSerializerSettings()
         {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            var settings = new System.Text.Json.JsonSerializerOptions();
             UpdateJsonSerializerSettings(settings);
             return settings;
         }
@@ -301,9 +319,9 @@ namespace Web.Client.Api
             }
         }
 
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _instanceSettings ?? _settings.Value; } }
+        protected System.Text.Json.JsonSerializerOptions JsonSerializerSettings { get { return _instanceSettings ?? _settings.Value; } }
 
-        static partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
+        static partial void UpdateJsonSerializerSettings(System.Text.Json.JsonSerializerOptions settings);
 
         partial void Initialize();
 
@@ -332,9 +350,9 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize)
+        public virtual System.Threading.Tasks.Task<TaskList> ListTasksAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize)
         {
-            return TasksGETGETAsync(q, tag, completed, sort, page, pageSize, System.Threading.CancellationToken.None);
+            return ListTasksAsync(q, tag, completed, sort, page, pageSize, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -359,7 +377,7 @@ namespace Web.Client.Api
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TaskList> TasksGETGETAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<TaskList> ListTasksAsync(string q, string tag, bool? completed, string sort, int? page, int? pageSize, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -464,11 +482,12 @@ namespace Web.Client.Api
         /// <br/>  3. DB に挿入し、201 を返す。可能なら Location ヘッダに /tasks/{id} を設定する。
         /// <br/>  4. 入力不正時は 400 を返す。
         /// </remarks>
+        /// <param name="body">新規作成するタスクのペイロード</param>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body)
+        public virtual System.Threading.Tasks.Task<Task> CreateTaskAsync(TaskCreate body)
         {
-            return TasksPOSTPOSTAsync(body, System.Threading.CancellationToken.None);
+            return CreateTaskAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -483,9 +502,10 @@ namespace Web.Client.Api
         /// <br/>  3. DB に挿入し、201 を返す。可能なら Location ヘッダに /tasks/{id} を設定する。
         /// <br/>  4. 入力不正時は 400 を返す。
         /// </remarks>
+        /// <param name="body">新規作成するタスクのペイロード</param>
         /// <returns>Task created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> TasksPOSTPOSTAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> CreateTaskAsync(TaskCreate body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -496,8 +516,8 @@ namespace Web.Client.Api
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -578,11 +598,12 @@ namespace Web.Client.Api
         /// <br/>  1. path の taskId（UUID）で DB を検索し、存在すれば Task を返す。
         /// <br/>  2. 存在しない場合は 404 を返す（#/components/responses/NotFound を利用）。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId)
+        public virtual System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId)
         {
-            return TasksGETGET22Async(taskId, System.Threading.CancellationToken.None);
+            return GetTaskAsync(taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -594,9 +615,10 @@ namespace Web.Client.Api
         /// <br/>  1. path の taskId（UUID）で DB を検索し、存在すれば Task を返す。
         /// <br/>  2. 存在しない場合は 404 を返す（#/components/responses/NotFound を利用）。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task found</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> TasksGETGET22Async(string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");
@@ -687,11 +709,13 @@ namespace Web.Client.Api
         /// <br/>  2. createdAt は保持し、updatedAt を現在時刻に更新する。
         /// <br/>  3. バリデーション失敗は 400、タスク未発見は 404 を返す。
         /// </remarks>
+        /// <param name="body">タスクの全体置換ペイロード（title 必須）</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task replaced</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> TasksPUTPUTAsync(TaskCreate body, string taskId)
+        public virtual System.Threading.Tasks.Task<Task> ReplaceTaskAsync(TaskCreate body, string taskId)
         {
-            return TasksPUTPUTAsync(body, taskId, System.Threading.CancellationToken.None);
+            return ReplaceTaskAsync(body, taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -704,9 +728,11 @@ namespace Web.Client.Api
         /// <br/>  2. createdAt は保持し、updatedAt を現在時刻に更新する。
         /// <br/>  3. バリデーション失敗は 400、タスク未発見は 404 を返す。
         /// </remarks>
+        /// <param name="body">タスクの全体置換ペイロード（title 必須）</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task replaced</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> TasksPUTPUTAsync(TaskCreate body, string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> ReplaceTaskAsync(TaskCreate body, string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");
@@ -720,8 +746,8 @@ namespace Web.Client.Api
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
@@ -815,11 +841,13 @@ namespace Web.Client.Api
         /// <br/>  2. contenteditable によるインライン編集を想定し、頻繁な小さな更新に耐えられるようにする。
         /// <br/>  3. 存在しない場合は 404 を返す。
         /// </remarks>
+        /// <param name="body">部分更新するフィールドを含むペイロード</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> TasksPATCHPATCHAsync(TaskUpdate body, string taskId)
+        public virtual System.Threading.Tasks.Task<Task> UpdateTaskAsync(TaskUpdate body, string taskId)
         {
-            return TasksPATCHPATCHAsync(body, taskId, System.Threading.CancellationToken.None);
+            return UpdateTaskAsync(body, taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -833,9 +861,11 @@ namespace Web.Client.Api
         /// <br/>  2. contenteditable によるインライン編集を想定し、頻繁な小さな更新に耐えられるようにする。
         /// <br/>  3. 存在しない場合は 404 を返す。
         /// </remarks>
+        /// <param name="body">部分更新するフィールドを含むペイロード</param>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> TasksPATCHPATCHAsync(TaskUpdate body, string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> UpdateTaskAsync(TaskUpdate body, string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");
@@ -849,8 +879,8 @@ namespace Web.Client.Api
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
@@ -942,11 +972,12 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId を削除する。成功時は 204 を返す。
         /// <br/>  2. タスク未発見なら 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task deleted (no content)</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task TasksDELETEDELETEAsync(string taskId)
+        public virtual System.Threading.Tasks.Task DeleteTaskAsync(string taskId)
         {
-            return TasksDELETEDELETEAsync(taskId, System.Threading.CancellationToken.None);
+            return DeleteTaskAsync(taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -958,9 +989,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId を削除する。成功時は 204 を返す。
         /// <br/>  2. タスク未発見なら 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task deleted (no content)</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TasksDELETEDELETEAsync(string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task DeleteTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");
@@ -1044,11 +1076,12 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を true に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> CompleteAsync(string taskId)
+        public virtual System.Threading.Tasks.Task<Task> CompleteTaskAsync(string taskId)
         {
-            return CompleteAsync(taskId, System.Threading.CancellationToken.None);
+            return CompleteTaskAsync(taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1060,9 +1093,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を true に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> CompleteAsync(string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> CompleteTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");
@@ -1154,11 +1188,12 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を false に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> UncompleteAsync(string taskId)
+        public virtual System.Threading.Tasks.Task<Task> UncompleteTaskAsync(string taskId)
         {
-            return UncompleteAsync(taskId, System.Threading.CancellationToken.None);
+            return UncompleteTaskAsync(taskId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1170,9 +1205,10 @@ namespace Web.Client.Api
         /// <br/>  1. 指定 taskId の Completed を false に設定し、updatedAt を更新する。
         /// <br/>  2. 更新後の Task を返す。未発見は 404 を返す。
         /// </remarks>
+        /// <param name="taskId">タスクID（UUID）</param>
         /// <returns>Task updated</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> UncompleteAsync(string taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> UncompleteTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (taskId == null)
                 throw new System.ArgumentNullException("taskId");
@@ -1303,10 +1339,10 @@ namespace Web.Client.Api
                 var responseText = await ReadAsStringAsync(response.Content, cancellationToken).ConfigureAwait(false);
                 try
                 {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
+                    var typedBody = System.Text.Json.JsonSerializer.Deserialize<T>(responseText, JsonSerializerSettings);
                     return new ObjectResponseResult<T>(typedBody, responseText);
                 }
-                catch (Newtonsoft.Json.JsonException exception)
+                catch (System.Text.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
                     throw new ApiException(message, (int)response.StatusCode, responseText, headers, exception);
@@ -1317,15 +1353,12 @@ namespace Web.Client.Api
                 try
                 {
                     using (var responseStream = await ReadAsStreamAsync(response.Content, cancellationToken).ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
                     {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
+                        var typedBody = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseStream, JsonSerializerSettings, cancellationToken).ConfigureAwait(false);
                         return new ObjectResponseResult<T>(typedBody, string.Empty);
                     }
                 }
-                catch (Newtonsoft.Json.JsonException exception)
+                catch (System.Text.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
                     throw new ApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
@@ -1388,40 +1421,67 @@ namespace Web.Client.Api
         }
     }
 
+    /// <summary>
+    /// タスク情報（取得・更新・削除対象）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Task
     {
 
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// タスクID（UUID）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.Guid Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// タスクタイトル
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスクの詳細（任意）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 期日（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("dueDate")]
         public System.DateTimeOffset? DueDate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("completed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 完了フラグ（true=完了）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("completed")]
         public bool Completed { get; set; } = false;
 
-        [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タグ一覧
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("tags")]
         public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// 作成日時（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("createdAt")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset CreatedAt { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("updatedAt", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 更新日時（ISO 8601、未更新時は null）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("updatedAt")]
         public System.DateTimeOffset? UpdatedAt { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -1430,26 +1490,41 @@ namespace Web.Client.Api
 
     }
 
+    /// <summary>
+    /// タスク作成・全体置換リクエスト（title 必須、それ以外は任意）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TaskCreate
     {
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
+        /// <summary>
+        /// タイトル（必須）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスクの詳細
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 期日（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("dueDate")]
         public System.DateTimeOffset DueDate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タグ一覧
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("tags")]
         public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -1458,28 +1533,46 @@ namespace Web.Client.Api
 
     }
 
+    /// <summary>
+    /// タスク部分更新リクエスト（全フィールド任意、指定されたフィールドのみ更新される）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TaskUpdate
     {
 
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タイトル
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("content", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスクの詳細
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 期日（ISO 8601）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("dueDate")]
         public System.DateTimeOffset DueDate { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("completed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 完了フラグ（true=完了）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("completed")]
         public bool Completed { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タグ一覧
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("tags")]
         public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -1488,25 +1581,40 @@ namespace Web.Client.Api
 
     }
 
+    /// <summary>
+    /// ページネーション対応のタスク一覧レスポンス
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TaskList
     {
 
-        [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// タスク配列
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("items")]
         public System.Collections.Generic.ICollection<Task> Items { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 合計件数
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("total")]
         public int Total { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("page", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 現在ページ番号（1-based）
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("page")]
         public int Page { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("pageSize", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// 1ページあたりの件数
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("pageSize")]
         public int PageSize { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
@@ -1515,19 +1623,28 @@ namespace Web.Client.Api
 
     }
 
+    /// <summary>
+    /// エラーレスポンス（code と message を含む）
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Error
     {
 
-        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// エラーコード
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("code")]
         public int Code { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>
+        /// エラーメッセージ
+        /// </summary>
+        [System.Text.Json.Serialization.JsonPropertyName("message")]
         public string Message { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
-        [Newtonsoft.Json.JsonExtensionData]
+        [System.Text.Json.Serialization.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }

@@ -13,7 +13,6 @@
     <PackageReference Include="BlazorBlueprint.Components" Version="3.*" />
     <PackageReference Include="BlazorBlueprint.Primitives" Version="3.*" />
     <PackageReference Include="BlazorBlueprint.Icons.Lucide" Version="2.*" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
 </Project>
