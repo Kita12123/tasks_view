@@ -72,20 +72,34 @@ else
 
     private async System.Threading.Tasks.Task Delete(System.Guid id)
     {
-        await ApiClient.DeleteTaskAsync(id.ToString());
-        await Load();
+        try
+        {
+            await ApiClient.DeleteTaskAsync(id.ToString());
+            await Load();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Delete error: {ex}");
+        }
     }
 
     private async System.Threading.Tasks.Task ToggleComplete(Web.Client.Api.Task t)
     {
-        if (t.Completed)
+        try
         {
-            await ApiClient.UncompleteTaskAsync(t.Id.ToString());
+            if (t.Completed)
+            {
+                await ApiClient.UncompleteTaskAsync(t.Id.ToString());
+            }
+            else
+            {
+                await ApiClient.CompleteTaskAsync(t.Id.ToString());
+            }
+            await Load();
         }
-        else
+        catch (Exception ex)
         {
-            await ApiClient.CompleteTaskAsync(t.Id.ToString());
+            Console.Error.WriteLine($"ToggleComplete error: {ex}");
         }
-        await Load();
     }
 }

@@ -19,6 +19,10 @@
     <input id="duedate" type="text" @bind="dueDateString" />
 </div>
 <div>
+    @if (!string.IsNullOrEmpty(saveError))
+    {
+        <div class="text-destructive">@saveError</div>
+    }
     <button id="save" @onclick="Save">保存</button>
     <button id="cancel" @onclick="Cancel">キャンセル</button>
 </div>
@@ -30,6 +34,7 @@
     private Web.Client.Api.TaskCreate model = new Web.Client.Api.TaskCreate();
     private string dueDateString = "";
     private bool IsNew => !Id.HasValue;
+    private string? saveError;
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
@@ -53,28 +58,37 @@
 
     private async System.Threading.Tasks.Task Save()
     {
-        if (!string.IsNullOrEmpty(dueDateString))
+        saveError = null;
+        try
         {
-            if (System.DateTimeOffset.TryParse(dueDateString, out var dto))
+            if (!string.IsNullOrEmpty(dueDateString))
             {
-                model.DueDate = dto;
+                if (System.DateTimeOffset.TryParse(dueDateString, out var dto))
+                {
+                    model.DueDate = dto;
+                }
+                else
+                {
+                    model.DueDate = System.DateTimeOffset.Now;
+                }
+            }
+
+            if (IsNew)
+            {
+                await ApiClient.CreateTaskAsync(model);
             }
             else
             {
-                model.DueDate = System.DateTimeOffset.Now;
+                await ApiClient.ReplaceTaskAsync(model, Id.ToString());
             }
-        }
 
-        if (IsNew)
-        {
-            await ApiClient.CreateTaskAsync(model);
+            NavigationManager.NavigateTo("/tasks");
         }
-        else
+        catch (Exception ex)
         {
-            await ApiClient.ReplaceTaskAsync(model, Id.ToString());
+            saveError = ex.Message;
+            Console.Error.WriteLine($"Task save error: {ex}");
         }
-
-        NavigationManager.NavigateTo("/tasks");
     }
 
     private void Cancel()
