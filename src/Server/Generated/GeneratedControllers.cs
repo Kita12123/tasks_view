@@ -20,9 +20,6 @@
 #pragma warning disable 8625 // Disable "CS8625 Cannot convert null literal to non-nullable reference type"
 #pragma warning disable 8765 // Disable "CS8765 Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes)."
 
-#pragma warning disable CS8618
-#nullable enable
-
 namespace Server.Presentation.Controllers
 {
     using System = global::System;
@@ -51,7 +48,7 @@ namespace Server.Presentation.Controllers
         /// <param name="pageSize">Items per page</param>
         /// <returns>A paginated list of tasks</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("tasks")]
-        public abstract System.Threading.Tasks.Task<TaskList> ListTasks([Microsoft.AspNetCore.Mvc.FromQuery] string? q = null, [Microsoft.AspNetCore.Mvc.FromQuery] string? tag = null, [Microsoft.AspNetCore.Mvc.FromQuery] bool? completed = null, [Microsoft.AspNetCore.Mvc.FromQuery] string? sort = null, [Microsoft.AspNetCore.Mvc.FromQuery] int? page = 1, [Microsoft.AspNetCore.Mvc.FromQuery] int? pageSize = 25);
+        public abstract System.Threading.Tasks.Task<TaskList> ListTasks([Microsoft.AspNetCore.Mvc.FromQuery] string q = null, [Microsoft.AspNetCore.Mvc.FromQuery] string tag = null, [Microsoft.AspNetCore.Mvc.FromQuery] bool? completed = null, [Microsoft.AspNetCore.Mvc.FromQuery] string sort = null, [Microsoft.AspNetCore.Mvc.FromQuery] int? page = 1, [Microsoft.AspNetCore.Mvc.FromQuery] int? pageSize = 25);
 
         /// <summary>
         /// Create a new task
