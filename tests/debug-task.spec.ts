@@ -64,7 +64,7 @@ test('Add new task with debugging', async ({ page }) => {
   });
   
   // Take a screenshot before saving
-  await page.screenshot({ path: 'before-save.png' });
+  await page.screenshot({ path: 'tests/before-save.png' });
   
   // Click the save button
   console.log('Clicking save button...');
@@ -77,7 +77,7 @@ test('Add new task with debugging', async ({ page }) => {
   await page.waitForTimeout(5000);
   
   // Take a screenshot after saving
-  await page.screenshot({ path: 'after-save.png' });
+  await page.screenshot({ path: 'tests/after-save.png' });
   
   // Check if there are any error messages on the page
   const errorMessages = page.locator('[class*="destructive"]');

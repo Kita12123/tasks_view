@@ -10,7 +10,7 @@ test('Inspect page structure', async ({ page }) => {
   await page.waitForTimeout(3000);
   
   // Take a screenshot to see what's on the page
-  await page.screenshot({ path: 'page-before-click.png' });
+  await page.screenshot({ path: 'tests/page-before-click.png' });
   
   // Find the add button by various selectors
   console.log('Looking for add button...');

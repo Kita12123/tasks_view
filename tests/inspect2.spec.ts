@@ -18,7 +18,7 @@ test('Click add button and inspect modal', async ({ page }) => {
   await page.waitForTimeout(2000);
   
   // Take a screenshot of the modal
-  await page.screenshot({ path: 'modal-opened.png' });
+  await page.screenshot({ path: 'tests/modal-opened.png' });
   
   // Find all inputs and textareas in the page
   const inputs = page.locator('input');
