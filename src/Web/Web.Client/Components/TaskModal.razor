@@ -1,0 +1,76 @@
+@using Web.Client.Api
+@using Microsoft.AspNetCore.Components
+
+@if (Visible)
+{
+    <div class="modal-backdrop" @onclick="Cancel" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+        <div class="modal" @onclick:stopPropagation style="background:white;padding:16px;border-radius:6px;min-width:320px;">
+            <h3>@(IsNew ? "新規タスク作成" : "タスク編集")</h3>
+            <div>
+                <label>タイトル</label>
+                <input @bind="model.Title" />
+            </div>
+            <div>
+                <label>内容</label>
+                <textarea @bind="model.Content"></textarea>
+            </div>
+            <div>
+                <label>期日</label>
+                <input type="date" value="@dueDateString" @onchange="OnDueDateChanged" />
+            </div>
+            <div class="modal-actions" style="margin-top:8px;">
+                <button @onclick="Save">保存</button>
+                <button @onclick="Cancel">キャンセル</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback<Web.Client.Api.Task> OnSave { get; set; }
+    [Parameter] public Web.Client.Api.Task? Model { get; set; }
+
+    private Web.Client.Api.Task model = new Web.Client.Api.Task();
+    private string? dueDateString;
+    private bool IsNew => Model == null;
+
+    protected override void OnParametersSet()
+    {
+        if (Model != null)
+        {
+            model = new Web.Client.Api.Task
+            {
+                Id = Model.Id,
+                Title = Model.Title,
+                Content = Model.Content,
+                DueDate = Model.DueDate,
+                Completed = Model.Completed,
+                Tags = Model.Tags
+            };
+            dueDateString = model.DueDate?.ToString("yyyy-MM-dd");
+        }
+        else
+        {
+            model = new Web.Client.Api.Task();
+            dueDateString = null;
+        }
+    }
+
+    private async System.Threading.Tasks.Task Save()
+    {
+        if (!string.IsNullOrWhiteSpace(dueDateString))
+        {
+            if (System.DateTimeOffset.TryParse(dueDateString, out var dto)) model.DueDate = dto;
+        }
+        await OnSave.InvokeAsync(model);
+    }
+
+    private void OnDueDateChanged(ChangeEventArgs e)
+    {
+        dueDateString = e?.Value?.ToString();
+    }
+
+    private async System.Threading.Tasks.Task Cancel() => await OnCancel.InvokeAsync(null);
+}

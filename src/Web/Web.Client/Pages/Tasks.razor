@@ -15,32 +15,28 @@ else if (tasks == null || tasks.Items == null || tasks.Items.Count == 0)
 }
 else
 {
-    <table class="bp-table">
-        <thead>
-            <tr><th>Title</th><th>Content</th><th>Due</th><th>Completed</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-            @foreach (var t in tasks.Items)
-            {
-                <tr>
-                    <td>@t.Title</td>
-                    <td>@t.Content</td>
-                    <td>@(t.DueDate.HasValue ? t.DueDate.Value.ToString("yyyy-MM-dd") : "")</td>
-                    <td>@(t.Completed ? "Yes" : "No")</td>
-                    <td>
-                        <button @onclick="() => ToggleComplete(t)">@((t.Completed) ? "Uncomplete" : "Complete")</button>
-                        <button @onclick="() => Edit(t.Id)">Edit</button>
-                        <button @onclick="() => Delete(t.Id)">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+        <div style="flex:1;">
+            <TaskFilters OnSearch="OnSearch" />
+            <TaskList Items="tasks.Items" OnToggle="ToggleComplete" OnEdit="Edit" OnDelete="Delete" OnSelect="SelectTask" />
+            <div style="margin-top:8px;">
+                <button @onclick="PrevPage">前へ</button>
+                <button @onclick="NextPage">次へ</button>
+            </div>
+        </div>
+        <div style="width:360px;">
+                <TaskDetail Item="selectedTask" OnEdit="Edit" OnToggleComplete="ToggleComplete" OnDelete="Delete" />
+        </div>
+    </div>
 }
 
 @code {
     private Web.Client.Api.TaskList? tasks;
     private bool loading = true;
+    private int page = 1;
+    private int perPage = 25;
+    private Web.Client.Api.Task? selectedTask;
+    private string? searchKeyword;
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
@@ -52,7 +48,7 @@ else
         loading = true;
         try
         {
-            tasks = await ApiClient.ListTasksAsync(null, null, null, null, 1, 100);
+            tasks = await ApiClient.ListTasksAsync(searchKeyword, null, null, "dueDate", page, perPage);
         }
         catch (Exception ex)
         {
@@ -105,5 +101,27 @@ else
         {
             Console.Error.WriteLine($"ToggleComplete error: {ex}");
         }
+    }
+
+    private void SelectTask(Web.Client.Api.Task t)
+    {
+        selectedTask = t;
+    }
+
+    private async System.Threading.Tasks.Task OnSearch(string kw)
+    {
+        searchKeyword = kw;
+        page = 1;
+        await Load();
+    }
+
+    private async System.Threading.Tasks.Task PrevPage()
+    {
+        if (page > 1) { page--; await Load(); }
+    }
+
+    private async System.Threading.Tasks.Task NextPage()
+    {
+        page++; await Load();
     }
 }

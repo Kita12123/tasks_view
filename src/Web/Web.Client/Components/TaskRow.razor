@@ -1,0 +1,30 @@
+@using Web.Client.Api
+@using Microsoft.AspNetCore.Components
+
+<tr>
+    <td>
+        <input type="checkbox" checked="@Item.Completed" @onchange="Toggle" aria-label="完了" />
+    </td>
+    <td><a href="#" @onclick="Select" @onclick:preventDefault="true">@Item.Title</a></td>
+    <td>@(Truncate(Item.Content, 100))</td>
+    <td>@(Item.DueDate.HasValue ? Item.DueDate.Value.ToString("yyyy-MM-dd") : "")</td>
+    <td>
+        <button @onclick="Edit">編集</button>
+        <button @onclick="Delete">削除</button>
+    </td>
+</tr>
+
+@code {
+    [Parameter] public Web.Client.Api.Task Item { get; set; } = default!;
+    [Parameter] public EventCallback<Web.Client.Api.Task> OnToggle { get; set; }
+    [Parameter] public EventCallback<System.Guid> OnEdit { get; set; }
+    [Parameter] public EventCallback<System.Guid> OnDelete { get; set; }
+    [Parameter] public EventCallback<Web.Client.Api.Task> OnSelect { get; set; }
+
+    private async System.Threading.Tasks.Task Toggle(ChangeEventArgs _) => await OnToggle.InvokeAsync(Item);
+    private async System.Threading.Tasks.Task Edit() => await OnEdit.InvokeAsync(Item.Id);
+    private async System.Threading.Tasks.Task Delete() => await OnDelete.InvokeAsync(Item.Id);
+    private async System.Threading.Tasks.Task Select() => await OnSelect.InvokeAsync(Item);
+
+    private string Truncate(string? s, int len) => string.IsNullOrEmpty(s) ? "" : (s.Length <= len ? s : s.Substring(0, len) + "…");
+}

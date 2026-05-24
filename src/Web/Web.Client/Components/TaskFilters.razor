@@ -1,0 +1,16 @@
+@using Microsoft.AspNetCore.Components
+
+<div class="task-filters" style="display:flex;gap:8px;align-items:center;">
+    <input placeholder="タスクを検索" @bind="keyword" @onkeydown="OnKeyDown" />
+    <button @onclick="Apply">検索</button>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnSearch { get; set; }
+    private string keyword = string.Empty;
+    private async Task Apply() => await OnSearch.InvokeAsync(keyword);
+    private async Task OnKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") await Apply();
+    }
+}

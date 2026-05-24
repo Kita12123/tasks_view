@@ -1,0 +1,28 @@
+@using Web.Client.Api
+@using Microsoft.AspNetCore.Components
+
+@if (Item == null)
+{
+    <div class="task-detail-empty">タスクを選択してください</div>
+}
+else
+{
+    <section class="task-detail" aria-live="polite">
+        <h2>@Item.Title</h2>
+        <div class="task-content">@((MarkupString)Item.Content)</div>
+        <div class="task-meta">期日: @(Item.DueDate.HasValue ? Item.DueDate.Value.ToString("yyyy-MM-dd") : "なし")</div>
+        <div class="task-tags">タグ: @(Item.Tags != null ? string.Join(", ", Item.Tags) : "-")</div>
+        <div class="task-actions">
+            <button @onclick="() => OnEdit.InvokeAsync(Item.Id)">編集</button>
+            <button @onclick="() => OnToggleComplete.InvokeAsync(Item)">@((Item.Completed) ? "未完了" : "完了")</button>
+            <button @onclick="() => OnDelete.InvokeAsync(Item.Id)">削除</button>
+        </div>
+    </section>
+}
+
+@code {
+    [Parameter] public Web.Client.Api.Task? Item { get; set; }
+    [Parameter] public EventCallback<System.Guid> OnEdit { get; set; }
+    [Parameter] public EventCallback<Web.Client.Api.Task> OnToggleComplete { get; set; }
+    [Parameter] public EventCallback<System.Guid> OnDelete { get; set; }
+}
