@@ -11,6 +11,12 @@ builder.Services.AddRazorComponents()
 // Add BlazorBlueprint services
 builder.Services.AddBlazorBlueprintComponents();
 
+// Enable detailed Blazor circuit errors in development to show full stack traces in the browser overlay
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.Configure<Microsoft.AspNetCore.Components.Server.CircuitOptions>(options => options.DetailedErrors = true);
+}
+
 // Register generated API client for server-side rendering and prerendering.
 // Use ApiBaseUrl config if provided; default to docker-compose service name 'server'.
 var apiBase = builder.Configuration["ApiBaseUrl"];
