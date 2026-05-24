@@ -43,7 +43,7 @@
 
         function sendClientLog(payload) {
             try {
-                fetch('/api/logs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                fetch('http://localhost:5000/api/logs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             } catch (e) { console.error('Failed to send client log', e); }
         }
 
