@@ -40,6 +40,52 @@
     <script>
         window.toggleDarkMode = () => document.documentElement.classList.toggle('dark');
         window.isDarkModeEnabled = () => document.documentElement.classList.contains('dark');
+
+        function sendClientLog(payload) {
+            try {
+                fetch('/api/logs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            } catch (e) { console.error('Failed to send client log', e); }
+        }
+
+        window.addEventListener('error', function (evt) {
+            try {
+                const payload = {
+                    message: evt.message,
+                    filename: evt.filename,
+                    lineno: evt.lineno,
+                    colno: evt.colno,
+                    stack: evt.error && evt.error.stack ? evt.error.stack : null,
+                    time: new Date().toISOString(),
+                    type: 'error'
+                };
+                sendClientLog(payload);
+                const overlay = document.getElementById('blazor-error-ui');
+                if (overlay) overlay.style.display = 'none';
+                let banner = document.getElementById('custom-error-banner');
+                if (!banner) {
+                    banner = document.createElement('div');
+                    banner.id = 'custom-error-banner';
+                    banner.style = 'position:fixed;bottom:0;left:0;right:0;background:#b91c1c;color:#fff;padding:8px;z-index:9999;text-align:center;';
+                    banner.innerText = 'アプリケーションエラーが発生しました。ページを再読み込みしてください。';
+                    document.body.appendChild(banner);
+                }
+            } catch (e) { console.error(e); }
+        });
+
+        window.addEventListener('unhandledrejection', function (evt) {
+            try {
+                const reason = evt.reason;
+                const payload = {
+                    message: reason && reason.message ? reason.message : String(reason),
+                    stack: reason && reason.stack ? reason.stack : null,
+                    time: new Date().toISOString(),
+                    type: 'unhandledrejection'
+                };
+                sendClientLog(payload);
+                const overlay = document.getElementById('blazor-error-ui');
+                if (overlay) overlay.style.display = 'none';
+            } catch (e) { console.error(e); }
+        });
     </script>
 </body>
 </html>
