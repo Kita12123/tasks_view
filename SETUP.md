@@ -17,34 +17,6 @@ npx skills add microsoft/playwright-cli
 npx skills add GoogleChrome/modern-web-guidance
 ```
 
-## MCP Server
-
-```shell
-# 事前インストール (Playwrightを使用するために必要)
-npx playwright install
-```
-
-```json:.vscode/mcp.json
-{
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ]
-    },
-    "blazorblueprint": {
-      "command": "npx",
-      "args": [
-        "@blazorblueprint/mcp@latest",
-        "--scope",
-        "project"
-      ]
-    }
-  }
-}
-```
-
 ## Front Project
 
 ```shell
@@ -75,6 +47,14 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 # Microsoft.AspNetCore.Mvc.NewtonsoftJson is not required; use System.Text.Json (built-in)
 dotnet add package Mediator.SourceGenerator
 dotnet add package Mediator.Abstractions
+```
+
+## Test Tool
+
+```shell
+# Playwrightのインストール
+npm install @playwright/cli@latest
+npx playwright install
 ```
 
 ## Code Generate
