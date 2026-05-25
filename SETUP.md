@@ -5,13 +5,44 @@
 ## Agents skills
 
 ```shell
-npx skills add kepano/obsidian-skills --all
-npx skills add aj-geddes/useful-ai-prompts --all
-npx skills add speakeasy-api/skills --all
-npx skills add microsoft/playwright-cli --all
-npx skills add GoogleChrome/modern-web-guidance --all
-npx @blazorblueprint/mcp@latest
-npx @playwright/mcp@latest
+# ドキュメント関連スキル (json-canvas, obsidian-markdown)
+npx skills add kepano/obsidian-skills
+# 図・デザイン関連スキル (architecture-diagrams, database-schema-design, database-schema-documentation)
+npx skills add aj-geddes/useful-ai-prompts
+# API関連スキル (writing-openapi-specs)
+npx skills add speakeasy-api/skills
+# テスト関連スキル (playwright-cli)
+npx skills add microsoft/playwright-cli
+# コード規約スキル (modern-web-guidance)
+npx skills add GoogleChrome/modern-web-guidance
+```
+
+## MCP Server
+
+```shell
+# 事前インストール (Playwrightを使用するために必要)
+npx playwright install
+```
+
+```json:.vscode/mcp.json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
+    "blazorblueprint": {
+      "command": "npx",
+      "args": [
+        "@blazorblueprint/mcp@latest",
+        "--scope",
+        "project"
+      ]
+    }
+  }
+}
 ```
 
 ## Front Project
@@ -49,6 +80,7 @@ dotnet add package Mediator.Abstractions
 ## Code Generate
 
 ```shell
+# nswag.jsonは、NSwagStudio等で作成して、プロジェクトルートに配置すること。
 npx nswag run "../../nswag.json"
 ```
 

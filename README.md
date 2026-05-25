@@ -15,7 +15,7 @@
 ## 技術選定
 
 - ドキュメント: Obsidian
-	- 設計図: Mermaid/C4
+	- 画面設計: json-canvas
 - API設計: OpenAPI
 	- 定義ファイル: openapi.yml
 	- コード生成: NSwag
@@ -28,6 +28,7 @@
 		- ORM: EntityFramework
 		- テスト: xUnit
 - データベース: Postgres
+	- ER図: Mermaid/C4
 - AI: GitHub Copilot
 	- スキル: `npx skills`
 - バージョン管理: GitHub

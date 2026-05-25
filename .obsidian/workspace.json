@@ -11,10 +11,14 @@
             "id": "baada6822348812c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "docs/skills/コード規約/SKILL.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新規タブ"
+              "title": "SKILL"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "docs/skills/コード規約/SKILL.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "バックリンク"
+              "title": "SKILLへのバックリンク"
             }
           },
           {
@@ -177,6 +182,14 @@
   },
   "active": "baada6822348812c",
   "lastOpenFiles": [
+    "docs/skills/API規約/SKILL.md",
+    "docs/skills/OpenAPI規約/SKILL.md",
+    "docs/skills/OpenAPI規約",
+    "docs/skills/ドキュメント規約/SKILL.md",
+    "docs/skills/ドキュメント規約",
+    "docs/skills/UI規約/SKILL.md",
+    "docs/skills/UI規約",
+    "docs/skills/コード規約/SKILL.md",
     "src/Server/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll",
     "src/Server/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
     "src/Server/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll",
@@ -184,10 +197,6 @@
     "src/Server/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
     "src/Server/bin/Debug/net10.0/zh-Hant",
     "src/Server/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll",
-    "src/Server/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll",
-    "src/Server/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll",
-    "src/Server/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
-    "src/Server/bin/Debug/net10.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
     "Template/wwwroot/images/avatar.png",
     "src/Template/wwwroot/images/avatar.png",
     "src/Web/bin/Debug/net10.0/publish/wwwroot/images/avatar.png",
@@ -220,10 +229,6 @@
     "node_modules/playwright-core/lib/tools/cli-client/skill/references/session-management.md",
     "node_modules/playwright-core/lib/tools/cli-client/skill/references/running-code.md",
     "node_modules/playwright-core/lib/tools/cli-client/skill/references/request-mocking.md",
-    "node_modules/playwright-core/lib/tools/cli-client/skill/references/playwright-tests.md",
-    "node_modules/playwright-core/lib/tools/cli-client/skill/references/element-attributes.md",
-    "node_modules/playwright-core/lib/tools/cli-client/skill/SKILL.md",
-    "node_modules/playwright/README.md",
     "無題のファイル.canvas"
   ]
 }

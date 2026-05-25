@@ -24,28 +24,20 @@ npx nswag run nswag.json
   - API 契約: `openapi.yml`
 
 ## Key conventions
-
-- `openapi.yml`には必ず`description`に処理内容を記載する。
-- 仕様ドキュメントは `docs/*.md` に置き、先頭に YAML front matter を持つ:
-  - `tags`
-  - `name`
-  - `description`
-- ドキュメント間の関連は Obsidian 形式の `[[wiki-link]]` で接続する（例: `[[tasks-show]]`）。
-- `tags` は現在 `画面`: 画面設計ドキュメント / `機能`: 画面に付随した機能仕様ドキュメント を使って分類しているため、新規仕様も同じ分類軸を優先する。
-- 仕様記述は日本語ベース。既存ドキュメントと同じ言語・粒度で追記する。
+- ドキュメントは Obsidian 形式で `docs/` に Markdown で置く。
+- API 仕様は `openapi.yml` に OpenAPI 形式で置く。
+- OpenAPI コード自動生成は NSwag を使用して `nswag.json` で管理する。
 - AI スキルは `.agents/skills` と `skills-lock.json` で管理される前提。 ## Agents skills を参照のこと。
-- MCP サーバーは `.vscode/mcp.json` で管理し、現時点では Playwright を有効化している。
 
 ## Agents skills
 
 - 設計
-	- ドキュメント: `.agents/skills/obsidian-markdown`
-	- 画面デザイン: `.agents/skills/json-canvas`
-	- ER図: `.agents/skills/architecture-diagrams`
-- API
-	- openapi.yml: [`.agents/skills/writing-openapi-specs`, `.agents/skills/my-openapi-rule.md`]
+	- Markdown: `.agents/skills/obsidian-markdown`
+	- 画面・デザイン: `.agents/skills/json-canvas`
+	- ER図: `.agents/skills/database-schema-design`, `.agents/skills/database-schema-documentation`
+	- openapi.yml: `.agents/skills/writing-openapi-specs`, `docs/skills/OpenAPI規約.md`
 - コーディング
-	- コード規約: [`.agents/skills/modern-web-guidance`, `.agents/skills/my-code-rule.md`]
-	- バックエンド: `.agents/skills/start-new-sdk-project`
+	- コード規約: `.agents/skills/modern-web-guidance`, `docs/skills/コード規約.md`
+  - UI: `https://blazorblueprintui.com/llms.txt`
 - テスト
-	- 画面制御: `.agents/skills/playwright-cli`
+	- E2E: `.agents/skills/playwright-cli`
