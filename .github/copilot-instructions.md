@@ -35,9 +35,9 @@ npx nswag run nswag.json
 	- Markdown: `.agents/skills/obsidian-markdown`
 	- 画面・デザイン: `.agents/skills/json-canvas`
 	- ER図: `.agents/skills/database-schema-design`, `.agents/skills/database-schema-documentation`
-	- openapi.yml: `.agents/skills/writing-openapi-specs`, `docs/skills/OpenAPI規約.md`
+	- openapi.yml: `.agents/skills/writing-openapi-specs`, `docs/skills/OpenAPI規約/SKILL.md`
 - コーディング
-	- コード規約: `.agents/skills/modern-web-guidance`, `docs/skills/コード規約.md`
-  - UI: `https://blazorblueprintui.com/llms.txt`
+	- コード規約: `.agents/skills/modern-web-guidance`, `docs/skills/コード規約/SKILL.md`
+  - UI: `https://blazorblueprintui.com/llms.txt`, `docs/skills/UI規約/SKILL.md`
 - テスト
 	- E2E: `.agents/skills/playwright-cli`

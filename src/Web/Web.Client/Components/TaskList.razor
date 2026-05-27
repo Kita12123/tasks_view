@@ -2,20 +2,19 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="task-list-wrapper">
-    <table class="bp-table">
-        <thead>
-            <tr><th></th><th>タイトル</th><th>内容</th><th>期日</th><th>操作</th></tr>
-        </thead>
-        <tbody>
-            @if (Items != null)
+    <div class="space-y-2">
+        @if (Items != null)
+        {
+            foreach (var t in Items)
             {
-                foreach (var t in Items)
-                {
-                    <TaskRow Item="t" OnToggle="OnToggle" OnEdit="OnEdit" OnDelete="OnDelete" OnSelect="OnSelect" />
-                }
+                <TaskRow Item="t" OnToggle="OnToggle" OnEdit="OnEdit" OnDelete="OnDelete" OnSelect="OnSelect" />
             }
-        </tbody>
-    </table>
+        }
+        else
+        {
+            <div class="text-muted">タスクがありません</div>
+        }
+    </div>
 </div>
 
 @code {

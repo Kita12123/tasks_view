@@ -3,26 +3,26 @@
 
 @if (Visible)
 {
-    <div class="modal-backdrop" @onclick="Cancel" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
-        <div class="modal" @onclick:stopPropagation style="background:white;padding:16px;border-radius:6px;min-width:320px;">
+    <div class="modal-backdrop" @onclick="Cancel" style="position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;">
+        <BbCard Class="p-4" @onclick:stopPropagation>
             <h3>@(IsNew ? "新規タスク作成" : "タスク編集")</h3>
-            <div>
-                <label>タイトル</label>
-                <input @bind="model.Title" />
+            <div class="mt-3">
+                <label class="block text-sm mb-1">タイトル</label>
+                <BbInput @bind-Value="model.Title" />
             </div>
-            <div>
-                <label>内容</label>
-                <textarea @bind="model.Content"></textarea>
+            <div class="mt-3">
+                <label class="block text-sm mb-1">内容</label>
+                <textarea class="bb-textarea w-full" @bind="model.Content"></textarea>
             </div>
-            <div>
-                <label>期日</label>
-                <input type="date" value="@dueDateString" @onchange="OnDueDateChanged" />
+            <div class="mt-3">
+                <label class="block text-sm mb-1">期日</label>
+                <input type="date" value="@dueDateString" @onchange="OnDueDateChanged" class="bb-input" />
             </div>
-            <div class="modal-actions" style="margin-top:8px;">
-                <button @onclick="Save">保存</button>
-                <button @onclick="Cancel">キャンセル</button>
+            <div class="modal-actions mt-4 flex justify-end gap-2">
+                            <BbButton @onclick="Save">保存</BbButton>
+                <BbButton Variant="ButtonVariant.Outline" @onclick="Cancel">キャンセル</BbButton>
             </div>
-        </div>
+        </BbCard>
     </div>
 }
 

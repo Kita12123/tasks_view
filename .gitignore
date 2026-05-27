@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 # Obsidian
 .obsidian/workspace.json
+
+# Playwright Test
+$log

@@ -1,18 +1,22 @@
 @using Web.Client.Api
 @using Microsoft.AspNetCore.Components
 
-<tr>
-    <td>
-        <input type="checkbox" checked="@Item.Completed" @onchange="Toggle" aria-label="完了" />
-    </td>
-    <td><a href="#" @onclick="Select" @onclick:preventDefault="true">@Item.Title</a></td>
-    <td>@(Truncate(Item.Content, 100))</td>
-    <td>@(Item.DueDate.HasValue ? Item.DueDate.Value.ToString("yyyy-MM-dd") : "")</td>
-    <td>
-        <BbButton Variant="ButtonVariant.Secondary" Size="ButtonSize.Small" @onclick="Edit">編集</BbButton>
-        <BbButton Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" @onclick="Delete">削除</BbButton>
-    </td>
-</tr>
+<BbCard Class="mb-2">
+    <div class="flex items-center gap-4">
+        <div>
+            <input type="checkbox" checked="@Item.Completed" @onchange="Toggle" aria-label="完了" />
+        </div>
+        <div class="flex-1">
+            <a href="#" @onclick="Select" @onclick:preventDefault="true" class="bb-link font-semibold text-lg">@Item.Title</a>
+            <div class="text-muted text-sm">@Truncate(Item.Content, 100)</div>
+        </div>
+        <div class="text-sm text-muted">@(Item.DueDate.HasValue ? Item.DueDate.Value.ToString("yyyy-MM-dd") : "")</div>
+        <div class="flex gap-2">
+            <BbButton Variant="ButtonVariant.Secondary" Size="ButtonSize.Small" @onclick="Edit">編集</BbButton>
+            <BbButton Variant="ButtonVariant.Destructive" Size="ButtonSize.Small" @onclick="Delete">削除</BbButton>
+        </div>
+    </div>
+</BbCard>
 
 @code {
     [Parameter] public Web.Client.Api.Task Item { get; set; } = default!;
