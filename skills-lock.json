@@ -313,6 +313,12 @@
       "skillPath": "skills/application-logging/SKILL.md",
       "computedHash": "ef3e77c8c1cf7c26c12cc5698ab4b07a04e036b34019e72f05cf0a841f75be5c"
     },
+    "architecture-contract": {
+      "source": "Kita12123/dev-ctx",
+      "sourceType": "github",
+      "skillPath": "skills/architecture-contract/SKILL.md",
+      "computedHash": "78207eb02d0ec93e2ba4c2239eb66c226f56a263abfd096b3213955d0783bab9"
+    },
     "architecture-diagrams": {
       "source": "aj-geddes/useful-ai-prompts",
       "sourceType": "github",
@@ -757,6 +763,12 @@
       "skillPath": "skills/docker-containerization/SKILL.md",
       "computedHash": "16d82830748801733720c1422c30924267886c71d7d3e41aaa41783534e7da77"
     },
+    "document-contract": {
+      "source": "Kita12123/dev-ctx",
+      "sourceType": "github",
+      "skillPath": "skills/document-contract/SKILL.md",
+      "computedHash": "d36f26e86778c2655280372ab2dcd04e999ffc320e34ab60a8fbfaa999a82b66"
+    },
     "documentation-site-setup": {
       "source": "aj-geddes/useful-ai-prompts",
       "sourceType": "github",
@@ -1195,6 +1207,18 @@
       "skillPath": "skills/obsidian-markdown/SKILL.md",
       "computedHash": "9ca4f671ffecfd020c8d9c733aed75bde42742fb5545b48b6bf8e5e54111b9ac"
     },
+    "openapi-usage": {
+      "source": "Kita12123/dev-ctx",
+      "sourceType": "github",
+      "skillPath": "skills/openapi-usage/SKILL.md",
+      "computedHash": "8c086218dd6f3655d2d868e334f42cbf60b348c4c0ca130509a0f4fb716e885f"
+    },
+    "openapi-validation": {
+      "source": "Kita12123/dev-ctx",
+      "sourceType": "github",
+      "skillPath": "skills/openapi-validation/SKILL.md",
+      "computedHash": "5c444f8c2e99d07030126349d0bde7befecf9262e8951726c507a79e7a1cf10e"
+    },
     "orchestrate-multi-repo-sdks": {
       "source": "speakeasy-api/skills",
       "sourceType": "github",
@@ -1429,6 +1453,12 @@
       "skillPath": "skills/security-testing/SKILL.md",
       "computedHash": "8081982f6a5e3c908098a8ac8c0d4943c717aef2db8109cf50a8173bb4000eb6"
     },
+    "semantic-contract": {
+      "source": "Kita12123/dev-ctx",
+      "sourceType": "github",
+      "skillPath": "skills/semantic-contract/SKILL.md",
+      "computedHash": "06ab029b7cf98b82dcf160e746e7de2f128904a708d954a608de042f0f2d7250"
+    },
     "semantic-versioning": {
       "source": "aj-geddes/useful-ai-prompts",
       "sourceType": "github",
@@ -1464,6 +1494,12 @@
       "sourceType": "github",
       "skillPath": "skills/setup-sdk-testing/SKILL.md",
       "computedHash": "6d174d03ce31d78b5aa46535911d1d3a6ae95e7d1a6e0bbf2589ac0c777bdf81"
+    },
+    "skill-contract": {
+      "source": "Kita12123/dev-ctx",
+      "sourceType": "github",
+      "skillPath": "skills/skill-contract/SKILL.md",
+      "computedHash": "9cc6236fff71a4b80adf204f5f96504e69195d832964245b6482176c21fc8aec"
     },
     "speakeasy-context": {
       "source": "speakeasy-api/skills",

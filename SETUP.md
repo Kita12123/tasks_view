@@ -15,6 +15,8 @@ npx skills add speakeasy-api/skills
 npx skills add microsoft/playwright-cli
 # コード規約スキル (modern-web-guidance)
 npx skills add GoogleChrome/modern-web-guidance
+# 自作スキル
+npx skills add https://github.com/Kita12123/dev-ctx.git --agent github-copilot --all
 ```
 
 ## Front Project
