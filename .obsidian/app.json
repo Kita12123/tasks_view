@@ -1,7 +1,9 @@
 {
   "newFileLocation": "folder",
   "newFileFolderPath": "docs",
-  "promptDelete": false,
+  "attachmentFolderPath": "imgs",
+  "useMarkdownLinks": true,
+  "showUnsupportedFiles": true,
   "alwaysUpdateLinks": true,
-  "showUnsupportedFiles": true
+  "newLinkFormat": "relative"
 }

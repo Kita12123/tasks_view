@@ -1,0 +1,6 @@
+body {
+    --inline-title-style: italic;
+    --inline-title-color: var(--text-normal);
+    --inline-title-size: 15px;
+    --inline-title-margin-bottom: 5px;
+}

@@ -1,1 +1,25 @@
-{}
+{
+  "enabledCssSnippets": [
+    "style",
+    "Banner",
+    "Blockquote",
+    "NoteIcon",
+    "Table",
+    "Tag",
+    "Tooltip",
+    "UnorderedList",
+    "banner",
+    "header",
+    "blockquote",
+    "excel",
+    "table",
+    "tag",
+    "top-fade",
+    "unordered-list",
+    "metadata",
+    "properties",
+    "title",
+    "file"
+  ],
+  "cssTheme": "Things"
+}

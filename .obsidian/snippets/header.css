@@ -1,0 +1,25 @@
+/*
+ * ヘッダーの色を変更
+ */
+body {
+    --h1-color: #B278F2 !important;
+    --h2-color: #5E9BE1 !important;
+    --h3-color: #FFC21F !important;
+    --h4-color: #46AC79 !important;
+    --h5-color: #D07A40 !important;
+    --h6-color: #D23838 !important;
+
+    /*
+     * ヘッダーの下線を追加
+     */
+    .markdown-preview-view :is(h1, h2, h3),
+    .markdown-rendered :is(h1, h2, h3),
+    .HyperMD-header.HyperMD-header-1.cm-line,
+    .HyperMD-header.HyperMD-header-2.cm-line,
+    .HyperMD-header.HyperMD-header-3.cm-line {
+        display: block !important;
+        content: "" !important;
+        padding-bottom: 5px !important;
+        border-bottom: 1px solid gray !important;
+    }
+}

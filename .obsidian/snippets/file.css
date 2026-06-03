@@ -1,0 +1,12 @@
+/*
+ * ファイルのサイズ変更
+ */
+body {
+    --file-margins-y: 10px;
+    --file-margins-x: 10px;
+    --file-line-width: 100%;
+
+    .cm-sizer {
+        margin-left: 10px !important;
+    }
+}
