@@ -14,7 +14,7 @@ description: A brief description of the document's content and purpose.
 tags:
   - skill
   - feature
-cover: https://example.com/image.jpg
+thumb: https://example.com/image.jpg
 env:
   - API_KEY
 ---
@@ -46,7 +46,7 @@ Pick tags from the following list:
 ## Cover Image
 Use `cover` to specify an image URL or a local file path for the document's cover.
 ```yaml
-cover: https://example.com/image.jpg
+thumb: https://example.com/image.jpg
 ```
 
 ## Environment Variables

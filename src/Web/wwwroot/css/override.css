@@ -1,3 +1,0 @@
-/* Override to hide Blazor's default blocking error UI in development so app doesn't become unusable. */
-#blazor-error-ui { display: none !important; }
-#custom-error-banner { font-weight: 600; }
