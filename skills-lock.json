@@ -29,7 +29,7 @@
       "source": "Kita12123/dev-ctx",
       "sourceType": "github",
       "skillPath": "skills/document-contract/SKILL.md",
-      "computedHash": "eb658a0e431374beb7da0a1d1ba5f2122d3a106602474ecb7359e9974b2e677d"
+      "computedHash": "21727a6d014715d0aa15ae61e458a6af6df45ac20ef0ce13e3feb7860d7927c6"
     },
     "openapi-dotnet": {
       "source": "Kita12123/dev-ctx",
@@ -41,7 +41,7 @@
       "source": "Kita12123/dev-ctx",
       "sourceType": "github",
       "skillPath": "skills/openapi-validation/SKILL.md",
-      "computedHash": "5c444f8c2e99d07030126349d0bde7befecf9262e8951726c507a79e7a1cf10e"
+      "computedHash": "bf5f3d5d19169fbdd4376ac1b392f912160f9b6efd7985579b77314447732502"
     },
     "redmine-api": {
       "source": "Kita12123/dev-ctx",
@@ -59,13 +59,13 @@
       "source": "shadcn/ui",
       "sourceType": "github",
       "skillPath": "skills/shadcn/SKILL.md",
-      "computedHash": "eee4f8123d0ce59aa1b2dbf7ea302e6ae1177ff9eb9ec7cb846ccac087e0025e"
+      "computedHash": "0dc0edeeaec2ae491ae506806517866a3f9bd48d04e0458feb37e0252862891f"
     },
     "skill-contract": {
       "source": "Kita12123/dev-ctx",
       "sourceType": "github",
       "skillPath": "skills/skill-contract/SKILL.md",
-      "computedHash": "9cc6236fff71a4b80adf204f5f96504e69195d832964245b6482176c21fc8aec"
+      "computedHash": "a1f8a093ff72f069052f0bf6643d1060376dfce9cdf96b856d7f8323a1d06fbb"
     },
     "writing-openapi-specs": {
       "source": "speakeasy-api/skills",

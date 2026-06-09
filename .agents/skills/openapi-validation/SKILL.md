@@ -1,8 +1,6 @@
 ---
 name: openapi-validation
 description: Audit and apply strict OpenAPI 3.0 validation keywords to openapi.yaml based on data types to ensure schema integrity and security.
-tags:
-  - skill
 ---
 
 # Validation

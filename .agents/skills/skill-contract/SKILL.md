@@ -1,8 +1,6 @@
 ---
 name: skill-contract
 description: This is a skill to manage your skills in a project for AI agents.
-tags:
-  - skill
 ---
 # Skill Contract
 This is skill to manage your skills in project.
